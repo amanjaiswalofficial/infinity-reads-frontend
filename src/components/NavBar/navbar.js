@@ -20,13 +20,12 @@ const NavBar = ({overImage = false, imageHeight = null, scrollAmount = null}) =>
     }
 
     return (
-        <div data-testid="component-navbar">
-            <AppBar data-testid="component-navbar-1" position="fixed" className={_getClass()}>
-                <Toolbar data-testid="component-navbar-2">
-                    <Typography variant="h6" className={classes.title}>
+        <div role="menu">
+            <AppBar position="fixed" className={_getClass()}>
+                <Toolbar>
+                    <Typography variant="h6" className={classes.title} role="">
                         Infinity Reads
                     </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </div>
