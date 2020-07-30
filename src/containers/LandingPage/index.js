@@ -5,6 +5,7 @@ import React, {useState, useEffect, useCallback} from "react"
 import NavBar from 'components/NavBar/navbar'
 import Poster from 'components/Poster/poster'
 import Contributors from 'containers/Contributors'
+import data from 'data/profile.json'
 import imagePath from 'assets/img/wallpaper.png'
 
 
@@ -35,13 +36,13 @@ const LandingPage = () => {
     }, [handleScrollAmountChange])
  
         return (
-            <div>
+            <div role="main">
             <NavBar 
             overImage={true} 
             scrollAmount={scrollAmount} 
             imageHeight={image.height}/>
             <Poster imageSrc={image.src}/>
-            <Contributors/>
+            <Contributors data={data}/>
             </div>
         )
 } 

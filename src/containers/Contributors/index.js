@@ -4,12 +4,11 @@ import ProfileCard from 'components/ProfileCard/profileCard'
 import Grid from '@material-ui/core/Grid';
 
 // Custom Imports
-import data from 'data/profile.json'
 import {useStyles} from "./makeCSS"
 
   
 
-const Contributors = () => {
+const Contributors = ({data}) => {
 
     const classes = useStyles();
 

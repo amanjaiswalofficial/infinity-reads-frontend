@@ -16,11 +16,11 @@ const ProfileCard = ({name, github, profileImage}) => {
     <Grid item xs={3} className={classes.root}>
     <Card className={classes.card}>
       <CardContent>
-        <img src={profileImage} className={classes.profileImage} alt=""/>
-        <Typography variant="h5" component="h2" className={classes.title}>
+        <img src={profileImage} className={classes.profileImage} alt="" data-testid="profileImage"/>
+        <Typography variant="h5" component="h2" className={classes.title} data-testid="userName">
           {name}
         </Typography>
-        <a href={github}><img src={githubLogo} alt="" className={classes.githubLogo}/></a>
+        <a href={github} data-testid="githubURL"><img src={githubLogo} alt="" className={classes.githubLogo}/></a>
       </CardContent>
     </Card>
     </Grid>
