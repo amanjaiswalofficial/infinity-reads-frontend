@@ -6,11 +6,17 @@ export const useStyles = makeStyles((theme) => ({
       fontFamily: 'Roboto sans-serif',
       flexGrow: 1,
     },
-  
+    link: {
+      color: "#FFFFFF",
+      "&:hover": {
+        color: "#F8B195",
+        textDecoration: "None"
+      }
+    },
     navVisible: {
-      background: "#6C5B7B",
+      background: "#355C7D",
       animationDuration: "0.5s",
-      animationName: "$setVisibility"
+      animationName: "$setVisibility",
     },
     navInvisible: {
       background: "transparent",
@@ -20,7 +26,7 @@ export const useStyles = makeStyles((theme) => ({
   
     "@keyframes resetVisibility": {
       "from": {
-          background: "#6C5B7B"
+          background: "#355C7D"
       },
       "to": {
           background: "transparent",
@@ -32,7 +38,7 @@ export const useStyles = makeStyles((theme) => ({
           background: "transparent"
       },
       "to": {
-          background: "#6C5B7B",
+          background: "#355C7D",
       }
     }
   }));

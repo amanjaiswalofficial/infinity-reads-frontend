@@ -1,18 +1,20 @@
 // Library imports
-import React, {useState, useEffect, useCallback} from "react"
+import React, {useState, useCallback} from "react"
 
 // Custom imports
 import NavBar from 'components/NavBar/navbar'
-import Poster from 'components/Poster/poster'
 import Contributors from 'containers/Contributors'
 import data from 'data/profile.json'
 import imagePath from 'assets/img/wallpaper.png'
+import Billboard from "containers/Billboard/billboard"
 
 
 const LandingPage = () => {
 
-    const [scrollAmount, setScrollAmount] = useState(0)
 
+    const [scrollAmount, setScrollAmount] = useState(null)
+
+    // TODO: Improve this functionality
     const image = new Image()
     image.src = imagePath
 
@@ -25,15 +27,8 @@ const LandingPage = () => {
 
     }, [])
 
-    // on every scroll event, call the above method
-    useEffect(() => {
-        
-        window.addEventListener('scroll', handleScrollAmountChange)
-        return () => {
-            window.removeEventListener('scroll', handleScrollAmountChange)
-        }
-        
-    }, [handleScrollAmountChange])
+    // on every scroll, down or up, change the scrollAmount value
+    window.addEventListener('scroll', handleScrollAmountChange)
  
         return (
             <div role="main">
@@ -41,7 +36,7 @@ const LandingPage = () => {
             overImage={true} 
             scrollAmount={scrollAmount} 
             imageHeight={image.height}/>
-            <Poster imageSrc={image.src}/>
+            <Billboard imageSrc={image.src}/>
             <Contributors data={data}/>
             </div>
         )

@@ -1,0 +1,1 @@
+export const DEFAULT_APP_BAR_HEIGHT = 64
