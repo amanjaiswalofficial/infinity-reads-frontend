@@ -1,11 +1,16 @@
-import React, {Component} from "react"
+import React from 'react';
+import NavBar from 'components/NavBar/navbar';
+import BlogContainer from 'containers/BlogContainer/blogContainer'
+
 
 const HomePage = () => {
-    return(
-        <div>
-            This Is HomePage
-        </div>
-    )
+
+  return (
+      <div>
+        <NavBar/>
+        <BlogContainer/>
+      </div>
+  );
 }
 
 export default HomePage

@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Shubham Bansal",
+        "github": "https://github.com/Shubham24006",
+        "profileImage": "https://avatars3.githubusercontent.com/u/35578715"
+    },
+    {
+        "id": 2,
+        "name": "Amulya Sharma",
+        "github": "https://github.com/amulyasharma27797",
+        "profileImage": "https://avatars2.githubusercontent.com/u/25840104"
+    },
+    {
+        "id": 3,
+        "name": "Aman Jaiswal",
+        "github": "https://github.com/amanjaiswalofficial/",
+        "profileImage": "https://avatars3.githubusercontent.com/u/33192573"
+    }
+]
