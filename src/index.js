@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 // Custom imports
 import App from './App';
 import './index.css';
+import {AppContextProvider} from 'context/appContext'
 
 
 // Initialize Apollo Client
@@ -17,9 +18,11 @@ const client = new ApolloClient({
 
 
 ReactDOM.render(
+    <AppContextProvider>
     <ApolloProvider client={client}>
     <App />
-    </ApolloProvider>, document.getElementById('root'));
+    </ApolloProvider>
+    </AppContextProvider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

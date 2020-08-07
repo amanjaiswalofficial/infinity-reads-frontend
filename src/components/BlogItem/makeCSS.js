@@ -22,7 +22,11 @@ export const useStyles = makeStyles((theme) => ({
       color: "#FFFFFF",
       margin: "3px",
     },
-    postedBy: {
+    postedByAuthor: {
+      float: "left", 
+      width: "69%"
+    },
+    postedByReader: {
       float: "left", 
       width: "83.1%"
     },
@@ -41,5 +45,15 @@ export const useStyles = makeStyles((theme) => ({
       transform: "scale(1)",
       transition: "transform .2s",
       zIndex: 111
+    },
+    editButton: {
+      height: "40px",
+      width: "40px",
+      borderRadius: "50%"
+    },
+    deleteButton: {
+      height: "40px",
+      width: "40px",
+      borderRadius: "50%"
     }
   }));

@@ -4,7 +4,13 @@ export const useStyles = makeStyles((theme) => ({
 
     title: {
       fontFamily: 'Roboto sans-serif',
-      flexGrow: 1,
+      width: "95%"
+    },
+    profileImage: {
+      height: "35px",
+      width: "35px",
+      borderRadius: "50%",
+      objectFit: "cover"
     },
     link: {
       color: "#FFFFFF",

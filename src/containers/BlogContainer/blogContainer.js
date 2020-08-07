@@ -10,12 +10,40 @@ import {useStyles} from './makeCSS'
 import BlogItem from 'components/BlogItem/blogItem'
 import {GET_BLOGS} from 'utils/queries'
 import sampleBlogs from 'data/sampleBlogs.json'
+import { useState, useContext } from 'react';
+import DeleteBlog from "components/DeleteBlog/deleteBlog"
+import { AppContext } from "context/appContext"
 
 
 const BlogContainer = () => {
 
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_BLOGS);
+  let { loading, error, data } = useQuery(GET_BLOGS);
+  const [editingBlog, setEditingBlog] = useState(false)
+  const [deleteBlog, setDeleteBlog] = useState(false)
+  const [state, dispatch] = useContext(AppContext);
+
+  const handleEdit = (title, user_id, content) => {
+    setEditingBlog(true)
+    dispatch({
+      type: "ENABLE_EDIT_BLOG",
+      payload: {
+        title: title,
+        user_id: user_id,
+        content: content
+      }
+    });
+  }
+
+  const handleDelete = (id) => {
+    setDeleteBlog(true)
+    dispatch({
+      type: "ENABLE_DELETE_BLOG",
+      payload: {
+        id: id
+      }
+    })
+  }
 
   const getBlogs = () => {
 
@@ -32,10 +60,14 @@ const BlogContainer = () => {
     if (error) {
       // TODO: Change this
       // displaying sample data in case of error
-      console.log(GET_BLOGS)
-      console.log(error)
-      return sampleBlogs.map(({ title, user_id, content }) => (
-        <BlogItem title={title} content={content} author={user_id}/>))
+      return sampleBlogs.map(({ id, title, user_id, content }) => (
+        <BlogItem 
+        id={id} 
+        handleEdit={handleEdit}
+        handleDelete={handleDelete} 
+        title={title} 
+        content={content} 
+        author={user_id}/>))
       
     }
 
@@ -56,6 +88,7 @@ const BlogContainer = () => {
       <Grid container spacing={3} className={classes.root}>
           {getBlogs()}
       </Grid>
+      <DeleteBlog/>
       </div>
   );
 }

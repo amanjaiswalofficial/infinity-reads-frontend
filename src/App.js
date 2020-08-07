@@ -10,10 +10,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from 'containers/HomePage'
 import LandingPage from 'containers/LandingPage'
 import ProfilePage from 'containers/ProfilePage'
+import NavBar from 'components/NavBar/navbar';
+
 
 function App() {
   return (
     <BrowserRouter>
+    <NavBar/>
     <Switch>
         <Route path='/home' component={HomePage} />
         <Route path='/profile' component={ProfilePage} />
