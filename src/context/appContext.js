@@ -8,20 +8,6 @@ const initialState = {
       name: null,
       user_id: "adminUser@123"
   },
-  propsNavbar: {
-    overImage: false, 
-    imageHeight: null, 
-    scrollAmount: null
-  },
-  editBlog: {
-    _id: null,
-    title: null,
-    content: null,
-    user_id: null
-  },
-  deleteBlog: {
-    _id: null
-  },
   refreshState: {
     reload: false
   }
@@ -45,41 +31,6 @@ const reducer = (state, action) => {
             anonymous: true
         }
       };
-    case "SET_NAVBAR_PROPS":
-      return {
-        ...state,
-        propsNavbar: {
-          overImage: action.payload.overImage, 
-          imageHeight: action.payload.imageHeight, 
-          scrollAmount: action.payload.scrollAmount
-        }
-      };
-    case "RESET_NAVBAR_PROPS":
-        return {
-          ...state,
-          propsNavbar: {
-            overImage: false,
-            imageHeight: null,
-            scrollAmount: null
-          }
-        };
-    case "ENABLE_EDIT_BLOG":
-    return {
-        ...state,
-        editBlog: {
-            _id: action.payload._id,
-            title: action.payload.title,
-            user_id: action.payload.user_id,
-            content: action.payload.content
-        }
-      };
-    case "ENABLE_DELETE_BLOG":
-      return {
-          ...state,
-          deleteBlog: {
-              _id: action.payload._id
-          }
-        };
     case "REFRESH_STATE":
       return {
         ...state,

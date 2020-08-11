@@ -1,37 +1,15 @@
+// Library imports
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-import Loader from 'react-loader-spinner'
+import Fade from '@material-ui/core/Fade'
 import Box from '@material-ui/core/Box'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
+// Custom imports
 import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: "0 0 20px #355C7D",
-    padding: theme.spacing(2, 2),
-    border: "1px solid #355C7D"
-  },
-  root: {
-    flexGrow: 1,
-    marginTop: "65px",
-    justifyContent: "center"
-  },
-  loader: {
-      height: 80,
-      width: 80
-  }
-}));
+import {useStyles} from "./makeCSS"
 
 
 export default function MessageDialog({message, 
@@ -40,23 +18,7 @@ export default function MessageDialog({message,
                                        handleSecondary}) {
   const classes = useStyles();
 
-  const displayMessage = () => {
-
-    return (
-    <div className={classes.modal}>
-        <Box p={0.5}>{message}</Box>
-        <Box p={0.5}>
-        <PrimaryButton text={"Yes"} handleClick={handlePrimary}/>
-        <SecondaryButton 
-                    textColor={"#F67280"} 
-                    text={"Cancel"} 
-                    handleClick={handleSecondary}
-                    />
-        </Box>
-    </div>)
-
-  }
-
+  // return a message dialog with 2 buttons, each for a certain action handler  
   return (
         <div>
           <Modal
@@ -73,7 +35,21 @@ export default function MessageDialog({message,
           >
             <Fade in={visibleState}>
               <div className={classes.paper}>
-                    {displayMessage()}
+                  <div className={classes.modal}>
+                        <Box p={0.5}>
+                          {message}
+                        </Box>
+                        <Box p={0.5}>
+                            <PrimaryButton 
+                            text={"Yes"} 
+                            handleClick={handlePrimary}/>
+                            <SecondaryButton 
+                            textColor={"#F67280"} 
+                            text={"Cancel"} 
+                            handleClick={handleSecondary}
+                            />
+                        </Box>
+                  </div>
               </div>
             </Fade>
           </Modal>

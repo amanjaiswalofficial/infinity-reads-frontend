@@ -1,77 +1,46 @@
+// Library imports
 import React, {useState, useEffect, useContext} from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Box from '@material-ui/core/Box'
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField'
 import Typography from "@material-ui/core/Typography"
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
+import { MuiThemeProvider } from '@material-ui/core'
 
-
+// Custom imports
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton'
 import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
 import { AppContext } from "context/appContext"
+import {useStyles, theme} from "./makeCSS"
 
-const theme = createMuiTheme({
-    overrides: {
-      MuiFormLabel: {
-        root: {
-            "&$focused": {
-              color: "#355C7D",
-            }
-          }, 
-      }
-    }
-  });
-
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-      color: "#355C7D",
-      fontSize: 18
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(2, 2),
-    border: "1px solid #355C7D",
-    width: "500px",
-    minWidth: "500px",
-    height: "340px",
-    minHeight: "340px",
-    boxShadow: "0 0 20px #355C7D"
-  },
-  userName: {
-      color: "#c06c84"
-  }
-}));
 
 const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
 
-  const [state, dispatch] = useContext(AppContext)
   const classes = useStyles();
-  const {user_id} = state.user
-  const {_id} = state.editBlog
+
+  const [state, dispatch] = useContext(AppContext)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+  
+  const {user_id} = state.user
+  
 
+  // Change the value of title in the state
   useEffect(() => {
     if(data && data.title){
       setTitle(data.title)
     }
   }, [data])
 
+  // Change the value of content in the state
   useEffect(() => {
     if(data && data.content){
       setContent(data.content)
     }
   }, [data])
 
+  // Return a dialog box with textField for title and content
   return (
     <div>
       <Modal
@@ -90,12 +59,21 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
         <MuiThemeProvider theme={theme}>
           <div className={classes.paper}>
                 <Box p={0.5}>
-                    <Typography variant="h5" component="h2" className={classes.title} data-testid="userName">
+                    <Typography 
+                    variant="h5" 
+                    component="h2" 
+                    className={classes.title} 
+                    data-testid="userName">
                         INSERT BLOG HERE 
                     </Typography>
                 </Box>
                 <Box p={0.5}>
-                    Posting as <span className={classes.userName}>{state.user.user_id}</span> <a href="#">Change</a>
+                    Posting as 
+                    <span 
+                    className={classes.userName}>
+                      {state.user.user_id}
+                    </span>
+                    <a href="#">Change</a>
                 </Box>
                 <Box p={0.5} className={classes.childBox}>
                             <TextField id="outlined-basic" 
@@ -121,7 +99,7 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                 <Box p={0.5} style={{justifyContent: "center", display: "flex"}}>
                     <PrimaryButton 
                     text={"Submit"}
-                    handleClick={e => handleSubmit(_id, title, content, user_id)}
+                    handleClick={e => handleSubmit(data._id, title, content, user_id)}
                     />
                     <SecondaryButton 
                     textColor={"#F67280"} 
@@ -138,5 +116,3 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
 }
 
 export default BlogDialog
-
-// TODO: Set name as set in state by email id

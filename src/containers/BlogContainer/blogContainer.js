@@ -7,10 +7,12 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 // Custom imports
 import BlogItem from 'components/BlogItem/blogItem'
+import NewBlogDialog from 'containers/NewBlogDialog/newBlogDialog'
 import DeleteBlog from "containers/DeleteBlog/deleteBlog"
 import EditBlog from "containers/EditBlog/editBlog"
 import sampleBlogs from 'data/sampleBlogs.json'
 import {GET_BLOGS} from 'utils/queries'
+import {REFRESH_STATE} from 'utils/constants'
 import {AppContext} from "context/appContext"
 import {useStyles} from './makeCSS'
 
@@ -19,42 +21,49 @@ const BlogContainer = () => {
 
   const classes = useStyles();
   
-  const [editVisible, setEditVisible] = useState(false)
-  const [deleteVisible, setDeleteVisible] = useState(false)
   const [state, dispatch] = useContext(AppContext);
+  const [editVisible, setEditVisible] = useState(false)  
+  const [deleteVisible, setDeleteVisible] = useState(false)
+  const [data, setData] = useState({})
+  
 
   const { loading: blogLoading, 
           error: blogError, 
           data: blogData} = useQuery(GET_BLOGS);
-     
+  
+  // If true, reload the page to update blogs content
   useEffect(() => {
     if(state.refreshState.reload){
+      dispatch({
+        type: REFRESH_STATE,
+        payload: {
+          reload: false
+        }
+      })
       window.location.reload(false)
     }
   }, [state.refreshState.reload])
           
 
   const handleEditOpen = (_id, user_id, title, content) => {
-    dispatch({
-      type: "ENABLE_EDIT_BLOG",
-      payload: {
-        _id: _id,
-        user_id: user_id,
-        title: title,
-        content: content
-      }
-    })
+    
+    const blogData = {
+      _id, user_id, title, content
+    }
+
+    setData(blogData)
+    // enable editBlog component
     setEditVisible(true)
   }
 
   const handleDeleteOpen = (_id) => {
     
-    dispatch({
-      type: "ENABLE_DELETE_BLOG",
-      payload: {
-        _id: _id
-      }
-    })
+    const blogData = {
+      _id: _id
+    }
+
+    setData(blogData)
+    // enable deleteBlog component
     setDeleteVisible(true)
   }
 
@@ -80,7 +89,6 @@ const BlogContainer = () => {
     );
 
     if (blogError) {
-      // TODO: Change this
       // displaying sample data in case of error
       return sampleBlogs.map((data) => (
             <BlogItem 
@@ -92,7 +100,6 @@ const BlogContainer = () => {
     }
 
     
-
     return blogData.blogs.data.map((singleBlog) => (
           <BlogItem 
             handleEdit={handleEditOpen}
@@ -106,10 +113,13 @@ const BlogContainer = () => {
           <Grid container spacing={3} className={classes.root}>
             {getBlogs()}
           </Grid>
+          <NewBlogDialog/>
           <DeleteBlog 
+          data={data}
           active={deleteVisible}
           handleClose={handleDeleteClose}/>
           <EditBlog
+          data={data}
           active={editVisible}
           handleClose={handleEditClose}/>
       </div>

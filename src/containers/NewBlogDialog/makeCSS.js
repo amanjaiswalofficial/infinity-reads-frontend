@@ -14,5 +14,14 @@ export const useStyles = makeStyles((theme) => ({
             border: "1px solid #355C7D",
             textDecoration: "None"
         }
+    },
+    parentBlock: {
+        float: "right",
+        marginLeft:"94.5%", 
+        marginRight: "0", 
+        marginTop: "20px",
+        position: "fixed",
+        top: "9%", 
+        width: "100%"
     }
   }));

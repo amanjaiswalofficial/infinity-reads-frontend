@@ -1,86 +1,36 @@
+// Library Import
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Loader from 'react-loader-spinner'
-import Box from '@material-ui/core/Box'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
-import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: "0 0 20px #355C7D",
-    padding: theme.spacing(2, 2),
-    border: "1px solid #355C7D"
-  },
-  root: {
-    flexGrow: 1,
-    marginTop: "65px",
-    justifyContent: "center"
-  },
-  loader: {
-      height: 80,
-      width: 80
-  }
-}));
+// Custom Import
+import {useStyles} from './makeCSS'
 
 
-export default function MutationDialog({action, visibleState, data, loading, error, handleClose}) {
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+const MutationDialog = ({action, 
+                         visibleState, 
+                         data, 
+                         loading, 
+                         error, 
+                         handleClose}) => {
+
   const classes = useStyles();
 
-  const handleData = () => {
+  const displayData = () => {
 
+    // Display loader while loading is true
     if(loading){
       return ( 
-        <Loader 
-        type="TailSpin" 
-        color="#11325B" 
-        className={classes.loader} 
-        timeout={5000}
-        />
-        )
-    }
-
-    if(error){
-      return (<div className={classes.modal}>
-        <Box p={0.5}>{error.message}</Box>
-        <Box p={0.5}>
-          <SecondaryButton 
-                    textColor={"#F67280"} 
-                    text={"OK"} 
-                    handleClick={handleClose}
-                    />
-        </Box>
-        </div>)
-    }
-
-    if(data){
-      const {code, message} = data[action]
-      return (<div className={classes.modal}>
-              <Box p={0.5}>{message}</Box>
-              <Box p={0.5}>
-                <SecondaryButton 
-                          textColor={"#F67280"} 
-                          text={"OK"} 
-                          handleClick={e => handleClose(code)}
-                          />
-              </Box>
-              </div>)
-    }
-
-  }
-
-  return (
-        <div>
-          <Modal
+        <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
@@ -94,10 +44,67 @@ export default function MutationDialog({action, visibleState, data, loading, err
           >
             <Fade in={visibleState}>
               <div className={classes.paper}>
-                    {handleData()}
+                        <Loader 
+                  type="TailSpin" 
+                  color="#11325B" 
+                  className={classes.loader} 
+                  timeout={3000}
+                  />
               </div>
             </Fade>
-          </Modal>
+        </Modal>
+        )
+    }
+
+    // Display snackbar when error occured with message
+    if(error){
+      return (
+        <div className={classes.snackBar}>
+          <Snackbar 
+            anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+            }}
+            open={visibleState} 
+            autoHideDuration={6000} 
+            onClose={handleClose}>
+            <Alert 
+            onClose={handleClose} 
+            severity="error">
+              {error.message}
+            </Alert>
+          </Snackbar>
+        </div>
+      );
+    }
+
+    // Display success / warning message based on response
+    if(data){
+      const {code, message} = data[action]
+      return (
+        <div className={classes.snackBar}>
+          <Snackbar 
+          open={visibleState} 
+          autoHideDuration={6000} 
+          onClose={e => handleClose(code)}
+          >
+            <Alert 
+            onClose={handleClose} 
+            severity={code === 200 ? "success" : "warning"}>
+              {message}
+            </Alert>
+          </Snackbar>
+        </div>
+      );
+    }
+
+  }
+
+  return (
+        <div>
+          {displayData()}
         </div>
       );
 }
+
+export default MutationDialog
