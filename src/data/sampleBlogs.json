@@ -1,18 +1,18 @@
 [
     {
-        "id": 1,
+        "_id": 1,
         "title": "First Blog",
         "content": "Some content about first blog",
         "user_id": "adminUser@123"
     },
     {
-        "id": 2,
+        "_id": 2,
         "title": "Second Blog",
         "content": "Some content about second blog",
         "user_id": 43211234
     },
     {
-        "id": 3,
+        "_id": 3,
         "title": "Third Blog",
         "content": "Some content about third blog",
         "user_id": 12344321

@@ -13,6 +13,7 @@ import Menu from '@material-ui/core/Menu';
 // Custom imports
 import { useStyles } from './makeCSS'
 import profileImage from 'assets/img/profile_icon.png'
+import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import {DEFAULT_APP_BAR_HEIGHT} from 'utils/constants'
 import { AppContext } from "context/appContext"
 
@@ -52,7 +53,7 @@ const NavBar = () => {
 
     return (
             <div role="menu">
-                <AppBar position="fixed" className={getClass()}>
+                <AppBar position="fixed" className={classes.navVisible}>
                     <Toolbar>
 
                             <Typography variant="h6" className={classes.title} role="">
@@ -60,7 +61,7 @@ const NavBar = () => {
                                     Infinity Reads
                                     </a>
                                 </Typography>
-                                {state.user.email}
+                                {state.user.user_id}
                             <IconButton
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -68,7 +69,7 @@ const NavBar = () => {
                                 onClick={handleMenu}
                                 color="inherit"
                                 >
-                                <img className={classes.profileImage} src={profileImage} alt=""/>
+                                <AccountCircleSharpIcon color="secondary" fontSize="large"/>
                                 </IconButton>
                                 <Menu
                                 id="menu-appbar"

@@ -3,12 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import Loader from 'react-loader-spinner'
 import Box from '@material-ui/core/Box'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
-import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,26 +33,48 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function MessageDialog({message, 
-                                       visibleState, 
-                                       handlePrimary, 
-                                       handleSecondary}) {
+export default function MutationDialog({action, visibleState, data, loading, error, handleClose}) {
   const classes = useStyles();
 
-  const displayMessage = () => {
+  const handleData = () => {
 
-    return (
-    <div className={classes.modal}>
-        <Box p={0.5}>{message}</Box>
+    if(loading){
+      return ( 
+        <Loader 
+        type="TailSpin" 
+        color="#11325B" 
+        className={classes.loader} 
+        timeout={5000}
+        />
+        )
+    }
+
+    if(error){
+      return (<div className={classes.modal}>
+        <Box p={0.5}>{error.message}</Box>
         <Box p={0.5}>
-        <PrimaryButton text={"Yes"} handleClick={handlePrimary}/>
-        <SecondaryButton 
+          <SecondaryButton 
                     textColor={"#F67280"} 
-                    text={"Cancel"} 
-                    handleClick={handleSecondary}
+                    text={"OK"} 
+                    handleClick={handleClose}
                     />
         </Box>
-    </div>)
+        </div>)
+    }
+
+    if(data){
+      const {code, message} = data[action]
+      return (<div className={classes.modal}>
+              <Box p={0.5}>{message}</Box>
+              <Box p={0.5}>
+                <SecondaryButton 
+                          textColor={"#F67280"} 
+                          text={"OK"} 
+                          handleClick={e => handleClose(code)}
+                          />
+              </Box>
+              </div>)
+    }
 
   }
 
@@ -64,7 +85,7 @@ export default function MessageDialog({message,
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={visibleState}
-            onClose={handleSecondary}
+            onClose={handleClose}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
@@ -73,7 +94,7 @@ export default function MessageDialog({message,
           >
             <Fade in={visibleState}>
               <div className={classes.paper}>
-                    {displayMessage()}
+                    {handleData()}
               </div>
             </Fade>
           </Modal>

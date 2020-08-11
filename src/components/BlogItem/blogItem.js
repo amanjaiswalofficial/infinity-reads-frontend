@@ -1,16 +1,18 @@
 import React, {useState, useContext} from 'react';
+import EditSharpIcon from '@material-ui/icons/EditSharp';
+import DeleteOutlineSharpIcon from '@material-ui/icons/DeleteOutlineSharp';
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
 import {useStyles} from './makeCSS'
 import { AppContext } from "context/appContext"
-import editButton from "assets/img/edit_icon.png"
-import deleteButton from "assets/img/delete_icon.png"
 
 
-const BlogItem = ({id, title, content, author, imageURL, postedBy, handleEdit, handleDelete}) => {
+const BlogItem = ({data, handleEdit, handleDelete}) => {
 
+
+  const {_id, title, content, user_id} = data
   const classes = useStyles();
   const [hoverClass, setHoverClass] = useState(classes.zoomOutClass)
   const [state, dispatch] = useContext(AppContext);
@@ -45,28 +47,24 @@ const BlogItem = ({id, title, content, author, imageURL, postedBy, handleEdit, h
             </Box>
             <Box>
             <div 
-            className={
-              state.user.email === author ? 
-              classes.postedByAuthor : 
-              classes.postedByReader
-              }>Posted By  
+            className={classes.postedBy}>Posted By  
             <a 
             className={classes.links} 
-            href="http://www.github.com/amanjaiswalofficial">{author}</a></div>
+            href="http://www.github.com/amanjaiswalofficial">{user_id}</a></div>
 
-            <div>
+            <div className={classes.actionButtons}>
             {
-              state.user.email === author ?
+              state.user.user_id === user_id ?
               <span>
-                <a href="#" onClick={e => handleEdit(author, title, content)}>
-                  <img className={classes.editButton} src={editButton} alt=""/>
-                </a>
-                <a href="#" onClick={e => handleDelete(id)}>
-                  <img className={classes.deleteButton} src={deleteButton} alt=""/>
-                </a>
+                <button className={classes.iconButtons} onClick={e => handleEdit(_id, user_id, title, content)}>
+                  <EditSharpIcon color="secondary" className={classes.editButton}/>
+                </button>
+                <button className={classes.iconButtons} onClick={e => handleDelete(_id)}>
+                  <DeleteOutlineSharpIcon color="action" className={classes.deleteButton}/>
+                </button>
               </span>: null
             }
-            <PrimaryButton text={"Read More"} handleClick={e => openURL(postedBy)}/>
+            <PrimaryButton text={"Read More"} handleClick={e => openURL(_id)}/>
 
             </div>
             

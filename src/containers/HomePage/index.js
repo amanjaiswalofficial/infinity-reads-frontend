@@ -1,8 +1,9 @@
-import React, {useContext, useEffect, useState } from 'react';
-import BlogContainer from 'containers/BlogContainer/blogContainer'
-import {AppContext} from 'context/appContext'
-import NewBlogDialog from "containers/NewBlogDialog/newBlogDialog"
+import React, {useContext, useEffect } from 'react';
 
+import BlogContainer from 'containers/BlogContainer/blogContainer'
+import NewBlogDialog from "containers/NewBlogDialog/newBlogDialog"
+import {AppContext} from 'context/appContext'
+import {RESET_NAVBAR_PROPS} from "utils/constants"
 
 const HomePage = () => {
 
@@ -10,7 +11,7 @@ const HomePage = () => {
 
   const resetNavBarProps = () => {
     dispatch({
-      type: "RESET_NAVBAR_PROPS"
+      type: RESET_NAVBAR_PROPS
     });
   };
 

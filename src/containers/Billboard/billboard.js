@@ -1,9 +1,10 @@
 import React from 'react'
+import Grid from '@material-ui/core/Grid';
+import { useHistory } from 'react-router-dom';
+
 import Poster from 'components/Poster/poster'
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton'
 import SecondaryButton from 'components/Buttons/SecondaryButton/secondaryButton'
-import Grid from '@material-ui/core/Grid';
-import { useHistory } from 'react-router-dom';
 import {useStyles} from "./makeCSS"
 
 const Billboard = ({imageSrc}) => {

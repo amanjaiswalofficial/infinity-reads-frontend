@@ -6,7 +6,7 @@ const initialState = {
   user: {
       anonymous: true,
       name: null,
-      email: "adminUser@123"
+      user_id: "adminUser@123"
   },
   propsNavbar: {
     overImage: false, 
@@ -14,12 +14,16 @@ const initialState = {
     scrollAmount: null
   },
   editBlog: {
+    _id: null,
     title: null,
     content: null,
     user_id: null
   },
   deleteBlog: {
-    id: null
+    _id: null
+  },
+  refreshState: {
+    reload: false
   }
 };
 
@@ -63,6 +67,7 @@ const reducer = (state, action) => {
     return {
         ...state,
         editBlog: {
+            _id: action.payload._id,
             title: action.payload.title,
             user_id: action.payload.user_id,
             content: action.payload.content
@@ -72,10 +77,16 @@ const reducer = (state, action) => {
       return {
           ...state,
           deleteBlog: {
-              id: action.payload.id
+              _id: action.payload._id
           }
         };
-  
+    case "REFRESH_STATE":
+      return {
+        ...state,
+        refreshState: {
+          reload: action.payload.reload
+        }
+      };
     default:
       throw new Error();
   }

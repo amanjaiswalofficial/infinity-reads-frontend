@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Box from '@material-ui/core/Box'
@@ -9,8 +9,9 @@ import Typography from "@material-ui/core/Typography"
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core'
 
 
-import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
+import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton'
 import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
+import { AppContext } from "context/appContext"
 
 const theme = createMuiTheme({
     overrides: {
@@ -50,11 +51,26 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BlogDialog = ({dialogVisible, handleClose, handleSubmit}) => {
+const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
+
+  const [state, dispatch] = useContext(AppContext)
   const classes = useStyles();
-  const [author, setAuthor] = useState("Admin")
+  const {user_id} = state.user
+  const {_id} = state.editBlog
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+
+  useEffect(() => {
+    if(data && data.title){
+      setTitle(data.title)
+    }
+  }, [data])
+
+  useEffect(() => {
+    if(data && data.content){
+      setContent(data.content)
+    }
+  }, [data])
 
   return (
     <div>
@@ -75,17 +91,18 @@ const BlogDialog = ({dialogVisible, handleClose, handleSubmit}) => {
           <div className={classes.paper}>
                 <Box p={0.5}>
                     <Typography variant="h5" component="h2" className={classes.title} data-testid="userName">
-                        POST A NEW BLOG
+                        INSERT BLOG HERE 
                     </Typography>
                 </Box>
                 <Box p={0.5}>
-                    Posting as <span className={classes.userName}>ABC</span> <a href="#">Change</a>
+                    Posting as <span className={classes.userName}>{state.user.user_id}</span> <a href="#">Change</a>
                 </Box>
                 <Box p={0.5} className={classes.childBox}>
                             <TextField id="outlined-basic" 
                             style={{width: "100%"}}
                             label="Title" variant="outlined" 
                             onChange={e => setTitle(e.target.value)}
+                            value={title}
                             />
                 </Box>
                 <Box p={0.5}>
@@ -98,12 +115,13 @@ const BlogDialog = ({dialogVisible, handleClose, handleSubmit}) => {
                             fullWidth={true}
                             variant="outlined"
                             onChange={e => setContent(e.target.value)}
+                            value={content}
                             />
                 </Box>
                 <Box p={0.5} style={{justifyContent: "center", display: "flex"}}>
                     <PrimaryButton 
                     text={"Submit"}
-                    handleClick={e => handleSubmit(author, title, content)}
+                    handleClick={e => handleSubmit(_id, title, content, user_id)}
                     />
                     <SecondaryButton 
                     textColor={"#F67280"} 
