@@ -1,10 +1,10 @@
 // Library imports
 import React, {useState, useEffect, useContext} from 'react'
-import BlogDialog from 'components/BlogDialog/blogDialog'
 import { useMutation } from '@apollo/client';
 
 // Custom imports
 import { EDIT_BLOG } from 'utils/queries'
+import BlogDialog from 'components/BlogDialog/blogDialog'
 import { AppContext } from "context/appContext"
 import MutationDialog from 'components/MutationDialog/mutationDialog'
 import { REFRESH_STATE } from 'utils/constants';
@@ -12,7 +12,7 @@ import { REFRESH_STATE } from 'utils/constants';
 
 const EditBlog = ({data, active, handleClose}) => {
 
-    const [state, disptach] = useContext(AppContext)
+    const [disptach] = useContext(AppContext)
     const [blogDialogVisible, setBlogDialogVisible] = useState(false)
     const [mutationVisible, setMutationVisible] = useState(false)
 

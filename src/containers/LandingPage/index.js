@@ -1,5 +1,5 @@
 // Library imports
-import React, {useState, useCallback, useContext} from "react"
+import React, {useState, useCallback} from "react"
 
 // Custom imports
 import Contributors from 'containers/Contributors'

@@ -20,7 +20,7 @@ const BlogItem = ({data, handleEdit, handleDelete}) => {
 
   const {_id, title, content, user_id} = data
   const [hoverClass, setHoverClass] = useState(classes.zoomOutClass)
-  const [state, dispatch] = useContext(AppContext);
+  const [state] = useContext(AppContext);
 
   const zoomIn = () => {
     setHoverClass(classes.zoomInClass)

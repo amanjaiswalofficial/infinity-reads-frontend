@@ -17,7 +17,9 @@ export const useStyles = makeStyles((theme) => ({
       "&:hover": {
         color: "#F8B195",
         textDecoration: "None"
-      }
+      },
+      background: "None", 
+      border: "None"
     },
     navVisible: {
       background: "#355C7D",

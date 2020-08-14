@@ -16,7 +16,7 @@ const NewBlogDialog = () => {
 
     const classes = useStyles()
 
-    const [state, dispatch] = useContext(AppContext)
+    const [dispatch] = useContext(AppContext)
     const [msgVisibility, setMsgVisibility] = useState(false)
     const [blogDialogVisible, setBlogDialogVisible] = useState(false)
     

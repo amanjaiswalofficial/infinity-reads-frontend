@@ -12,7 +12,6 @@ import Menu from '@material-ui/core/Menu';
 
 // Custom imports
 import { useStyles } from './makeCSS'
-import profileImage from 'assets/img/profile_icon.png'
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 import {DEFAULT_APP_BAR_HEIGHT} from 'utils/constants'
 import { AppContext } from "context/appContext"
@@ -20,16 +19,12 @@ import { AppContext } from "context/appContext"
 
 const NavBar = () => {
 
-    const [state, dispatch] = useContext(AppContext);
-    const [auth, setAuth] = useState(true);
+    const [state] = useContext(AppContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const history = useHistory();
     const classes = useStyles();
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
-      };
 
     const getClass = () => {
 
@@ -57,9 +52,9 @@ const NavBar = () => {
                     <Toolbar>
 
                             <Typography variant="h6" className={classes.title} role="">
-                                <a className={classes.link} onClick={goHome} href="">
+                                <button className={classes.link} onClick={goHome}>
                                     Infinity Reads
-                                    </a>
+                                    </button>
                                 </Typography>
                                 {state.user.user_id}
                             <IconButton

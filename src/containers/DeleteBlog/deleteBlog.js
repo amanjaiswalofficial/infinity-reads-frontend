@@ -1,10 +1,10 @@
 // Library imports
 import React, {useState, useEffect, useContext} from 'react'
-import MessageDialog from 'components/MessageDialog/messageDialog'
 import { useMutation } from '@apollo/client';
 
 
 // Custom imports
+import MessageDialog from 'components/MessageDialog/messageDialog'
 import {DELETE_BLOG} from 'utils/queries'
 import {REFRESH_STATE} from 'utils/constants'
 import {AppContext} from "context/appContext"
@@ -15,7 +15,7 @@ const DeleteBlog = ({data, active, handleClose}) => {
 
     const [messageVisible, setMessageVisible] = useState(false)
     const [mutationVisible, setMutationVisible] = useState(false)
-    const [state, dispatch] = useContext(AppContext);
+    const [dispatch] = useContext(AppContext);
     
     const [deleteBlog, 
         { loading: deleteLoading, 

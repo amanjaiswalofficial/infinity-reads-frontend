@@ -42,7 +42,7 @@ const BlogContainer = () => {
       })
       window.location.reload(false)
     }
-  }, [state.refreshState.reload])
+  }, [state.refreshState.reload, dispatch])
           
 
   const handleEditOpen = (_id, user_id, title, content) => {

@@ -37,7 +37,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   userName: {
       paddingLeft: "5px",
-      paddingRight: "5px",
       color: "#c06c84"
+  },
+  clickableButton: {
+    background: "None", 
+    border: "None"
   }
 }));

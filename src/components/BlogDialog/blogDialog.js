@@ -19,7 +19,7 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
 
   const classes = useStyles();
 
-  const [state, dispatch] = useContext(AppContext)
+  const [state] = useContext(AppContext)
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   
@@ -73,11 +73,11 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                     className={classes.userName}>
                       {state.user.user_id}
                     </span>
-                    <a href="#">Change</a>
+                    <button className={classes.clickableButton}>Change</button>
                 </Box>
                 <Box p={0.5} className={classes.childBox}>
-                            <TextField id="outlined-basic" 
-                            style={{width: "100%"}}
+                            <TextField id="outlined-basic"
+                            fullWidth={true}
                             label="Title" variant="outlined" 
                             onChange={e => setTitle(e.target.value)}
                             value={title}
