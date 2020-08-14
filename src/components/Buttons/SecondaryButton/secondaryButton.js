@@ -3,12 +3,12 @@ import Button from '@material-ui/core/Button'
 
 import { useStyles } from 'components/Buttons/makeCSS'
 
-const SecondaryButton = ({handleClick, text}) => {
+const SecondaryButton = ({handleClick, text, textColor="#FFFFFF"}) => {
 
     const classes = useStyles();
 
     return (
-        <Button className={classes.secondary} onClick={handleClick}>{text}</Button>
+        <Button style={{color: textColor}} className={classes.secondary} onClick={handleClick}>{text}</Button>
     )
 }
 

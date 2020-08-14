@@ -2,15 +2,12 @@
 import React, {useState, useCallback} from "react"
 
 // Custom imports
-import NavBar from 'components/NavBar/navbar'
 import Contributors from 'containers/Contributors'
 import data from 'data/profile.json'
 import imagePath from 'assets/img/wallpaper.png'
 import Billboard from "containers/Billboard/billboard"
 
-
 const LandingPage = () => {
-
 
     const [scrollAmount, setScrollAmount] = useState(null)
 
@@ -32,10 +29,6 @@ const LandingPage = () => {
  
         return (
             <div role="main">
-            <NavBar 
-            overImage={true} 
-            scrollAmount={scrollAmount} 
-            imageHeight={image.height}/>
             <Billboard imageSrc={image.src}/>
             <Contributors data={data}/>
             </div>

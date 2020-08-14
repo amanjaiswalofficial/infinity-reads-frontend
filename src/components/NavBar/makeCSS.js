@@ -4,14 +4,22 @@ export const useStyles = makeStyles((theme) => ({
 
     title: {
       fontFamily: 'Roboto sans-serif',
-      flexGrow: 1,
+      width: "95%"
+    },
+    profileImage: {
+      height: "35px",
+      width: "35px",
+      borderRadius: "50%",
+      objectFit: "cover"
     },
     link: {
       color: "#FFFFFF",
       "&:hover": {
         color: "#F8B195",
         textDecoration: "None"
-      }
+      },
+      background: "None", 
+      border: "None"
     },
     navVisible: {
       background: "#355C7D",

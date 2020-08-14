@@ -1,16 +1,26 @@
-import React, {useState} from 'react';
-
+// Library imports
+import React, {useState, useContext} from 'react';
+import EditSharpIcon from '@material-ui/icons/EditSharp';
+import DeleteOutlineSharpIcon from '@material-ui/icons/DeleteOutlineSharp';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+
+// Custom imports
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
+import {SAMPLE_BLOG_URL, 
+        BLANK_IMAGE_URL,
+        SAMPLE_USER_PROFILE_URL} from 'utils/constants'
 import {useStyles} from './makeCSS'
+import { AppContext } from "context/appContext"
 
 
-const BlogItem = ({title, content, author, imageURL, postedBy}) => {
+const BlogItem = ({data, handleEdit, handleDelete}) => {
 
   const classes = useStyles();
-  const [hoverClass, setHoverClass] = useState(classes.zoomOutClass)
 
+  const {_id, title, content, user_id} = data
+  const [hoverClass, setHoverClass] = useState(classes.zoomOutClass)
+  const [state] = useContext(AppContext);
 
   const zoomIn = () => {
     setHoverClass(classes.zoomInClass)
@@ -21,19 +31,34 @@ const BlogItem = ({title, content, author, imageURL, postedBy}) => {
   }
 
   const openURL = (url) => {
-    window.open("https://medium.com/the-renaissance-developer/learning-python-from-zero-to-hero-8ceed48486d5")
+    window.open(SAMPLE_BLOG_URL)
   }
 
+  // Return a single blogItem component with options to
+  // 1.Read more on blog
+  // 2.Open User profile
+  // 3.Edit or Delete a blog based on authentication
   return (
 
-    <Grid item xs={7} className={`${classes.root} ${hoverClass}`} style={{padding: "0px"}} onMouseEnter={zoomIn} onMouseLeave={zoomOut} >
-      <Box data-testid="blog-item" boxShadow={2} display="flex" flexDirection="row" className={classes.parentBox}>
+    <Grid 
+    item xs={7} 
+    className={`${classes.root} ${hoverClass}`} 
+    style={{padding: "0px"}} 
+    onMouseEnter={zoomIn} 
+    onMouseLeave={zoomOut} 
+    >
+      <Box 
+      data-testid="blog-item" 
+      boxShadow={2} 
+      display="flex" 
+      flexDirection="row" 
+      className={classes.parentBox}>
         <Box p={1}>
-        <img 
-            className={classes.blogImage}
-            src={"https://via.placeholder.com/180"} 
-            alt=""
-            />
+          <img 
+              className={classes.blogImage}
+              src={BLANK_IMAGE_URL} 
+              alt=""
+              />
         </Box>
         <Box p={1} className={classes.childBox}>
             <Box className={classes.contentBox}>
@@ -42,11 +67,35 @@ const BlogItem = ({title, content, author, imageURL, postedBy}) => {
             </Box>
             <Box>
             <div 
-            className={classes.postedBy}>Posted By 
+            className={classes.postedBy}>Posted By  
             <a 
             className={classes.links} 
-            href="http://www.github.com/amanjaiswalofficial">{author}</a></div>
-            <PrimaryButton text={"Read More"} handleClick={e => openURL(postedBy)}/>
+            href={SAMPLE_USER_PROFILE_URL}>{user_id}</a></div>
+
+            <div className={classes.actionButtons}>
+              {
+                state.user.user_id === user_id ?
+                <span>
+                  <button 
+                  className={classes.iconButtons} 
+                  onClick={e => handleEdit(_id, user_id, title, content)}>
+                    <EditSharpIcon 
+                    color="secondary" 
+                    className={classes.editButton}/>
+                  </button>
+                  <button 
+                  className={classes.iconButtons} 
+                  onClick={e => handleDelete(_id)}>
+                    <DeleteOutlineSharpIcon 
+                    color="action" 
+                    className={classes.deleteButton}/>
+                  </button>
+                </span>: null
+              }
+              <PrimaryButton 
+              text={"Read More"} 
+              handleClick={e => openURL(_id)}/>
+            </div>
             </Box>
         </Box>
       </Box>

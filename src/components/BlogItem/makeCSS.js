@@ -9,7 +9,7 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: "2px 2px"
     },
     childBox: {
-      width: "80%"
+      width: "80%",
     },
     contentBox: {
       height: "80%"
@@ -23,10 +23,10 @@ export const useStyles = makeStyles((theme) => ({
       margin: "3px",
     },
     postedBy: {
-      float: "left", 
-      width: "83.1%"
+      float: "left"
     },
     links: {
+      paddingLeft: "5px",
       "&:hover": {
         color: "#F8B195",
         textDecoration: "None"
@@ -41,5 +41,21 @@ export const useStyles = makeStyles((theme) => ({
       transform: "scale(1)",
       transition: "transform .2s",
       zIndex: 111
+    },
+    editIcon: {
+      height: "30px",
+      width: "30px"
+    },
+    deleteIcon: {
+      height: "30px",
+      width: "30px"
+    },
+    iconButtons: {
+      background: "None",
+      border: "None"
+    },
+    actionButtons: {
+      float: "right",
     }
   }));
+  
