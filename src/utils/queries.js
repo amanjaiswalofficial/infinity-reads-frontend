@@ -1,13 +1,13 @@
-import { gql } from '@apollo/client';
+import gql from 'graphql-tag';
 
 export const GET_BLOGS = gql`
-query{
-  blogs{
+query getBlogs($searchBy: String, $listBy: String){
+  blogs(searchBy: $searchBy, listBy: $listBy){
     data{
       title
       content
       user_id
-      _id      
+      id      
     }
     status
     code
@@ -24,16 +24,16 @@ export const POST_BLOG =gql`
 }`
 
 export const DELETE_BLOG =gql`
- mutation DeleteBlog($_id: ID!){
-  deleteBlog(_id: $_id){
+ mutation DeleteBlog($id: ID!){
+  deleteBlog(id: $id){
    message
    code
   }
 }`
 
 export const EDIT_BLOG=gql`
- mutation UpdateBlog($user_id: String!, $_id: ID!, $title: String!, $content: String!){
-  updateBlog(_id: $_id, data:{user_id: $user_id, title: $title, content: $content}){
+ mutation UpdateBlog($user_id: String!, $id: ID!, $title: String!, $content: String!){
+  updateBlog(id: $id, data:{user_id: $user_id, title: $title, content: $content}){
    message
    code
   }

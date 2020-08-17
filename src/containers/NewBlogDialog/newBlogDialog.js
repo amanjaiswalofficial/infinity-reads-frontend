@@ -16,7 +16,7 @@ const NewBlogDialog = () => {
 
     const classes = useStyles()
 
-    const [dispatch] = useContext(AppContext)
+    const [state, dispatch] = useContext(AppContext)
     const [msgVisibility, setMsgVisibility] = useState(false)
     const [blogDialogVisible, setBlogDialogVisible] = useState(false)
     
@@ -25,7 +25,7 @@ const NewBlogDialog = () => {
               loading: postLoading, 
               error: postError} ] = useMutation(POST_BLOG)
 
-    const handlePostBlog = (_id, title, content, user_id) => {
+    const handlePostBlog = (id, title, content, user_id) => {
 
         postBlog({variables: 
             {user_id: user_id, 

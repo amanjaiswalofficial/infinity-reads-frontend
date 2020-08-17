@@ -99,7 +99,7 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                 <Box p={0.5} style={{justifyContent: "center", display: "flex"}}>
                     <PrimaryButton 
                     text={"Submit"}
-                    handleClick={e => handleSubmit(data._id, title, content, user_id)}
+                    handleClick={e => handleSubmit(data.id, title, content, user_id)}
                     />
                     <SecondaryButton 
                     textColor={"#F67280"} 

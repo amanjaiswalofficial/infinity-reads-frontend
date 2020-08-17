@@ -3,8 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
 
     title: {
-      fontFamily: 'Roboto sans-serif',
-      width: "95%"
+      width: "90%"
     },
     profileImage: {
       height: "35px",
@@ -14,12 +13,12 @@ export const useStyles = makeStyles((theme) => ({
     },
     link: {
       color: "#FFFFFF",
+      background: "None", 
+      border: "None",
       "&:hover": {
         color: "#F8B195",
         textDecoration: "None"
-      },
-      background: "None", 
-      border: "None"
+      }
     },
     navVisible: {
       background: "#355C7D",

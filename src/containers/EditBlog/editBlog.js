@@ -12,7 +12,7 @@ import { REFRESH_STATE } from 'utils/constants';
 
 const EditBlog = ({data, active, handleClose}) => {
 
-    const [disptach] = useContext(AppContext)
+    const [state, dispatch] = useContext(AppContext)
     const [blogDialogVisible, setBlogDialogVisible] = useState(false)
     const [mutationVisible, setMutationVisible] = useState(false)
 
@@ -32,7 +32,7 @@ const EditBlog = ({data, active, handleClose}) => {
         // if the edit operation is successful,
         // update state to refresh component
         if(code === 200){
-            disptach({
+            dispatch({
                 type: REFRESH_STATE,
                 payload: {
                   reload: true
@@ -43,12 +43,12 @@ const EditBlog = ({data, active, handleClose}) => {
         handleClose()
     }
 
-    const handleEditBlog = (_id, title, content, user_id) => {
+    const handleEditBlog = (id, title, content, user_id) => {
         setBlogDialogVisible(false)
         setMutationVisible(true)
 
         // call GraphQL mutation
-        editBlog({variables: {_id, title, content, user_id}}).catch(err => console.log(err))
+        editBlog({variables: {id, title, content, user_id}}).catch(err => console.log(err))
     }
 
     // Return component that handles blogDialog and mutationDialog boxes

@@ -7,24 +7,36 @@ import { useHistory } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 
 // Custom imports
 import { useStyles } from './makeCSS'
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
-import {DEFAULT_APP_BAR_HEIGHT} from 'utils/constants'
+import {DEFAULT_APP_BAR_HEIGHT, SET_DARK_MODE} from 'utils/constants'
 import { AppContext } from "context/appContext"
 
 
 const NavBar = () => {
 
-    const [state] = useContext(AppContext);
+    const [state, dispatch] = useContext(AppContext);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [mode, setMode] = useState(state.mode.dark);
     const open = Boolean(anchorEl);
     const history = useHistory();
     const classes = useStyles();
 
+    // const handleModeChange = (event) => {
+    //     setMode(event.target.checked)
+    //     dispatch({
+    //         type: SET_DARK_MODE,
+    //         payload: {
+    //           dark: event.target.checked
+    //         }
+    //       })
+    //   };
 
     const getClass = () => {
 
@@ -50,12 +62,11 @@ const NavBar = () => {
             <div role="menu">
                 <AppBar position="fixed" className={classes.navVisible}>
                     <Toolbar>
-
                             <Typography variant="h6" className={classes.title} role="">
                                 <button className={classes.link} onClick={goHome}>
                                     Infinity Reads
-                                    </button>
-                                </Typography>
+                                </button>
+                            </Typography>
                                 {state.user.user_id}
                             <IconButton
                                 aria-label="account of current user"
@@ -91,3 +102,15 @@ const NavBar = () => {
 }
 
 export default NavBar
+
+/**
+ * {/* <FormControlLabel
+        control={
+        <Switch
+            checked={mode}
+            onChange={handleModeChange}
+            color="#51ff0d"
+        />
+        }
+    /> }
+ */

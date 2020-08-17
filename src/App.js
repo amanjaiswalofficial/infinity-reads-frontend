@@ -7,9 +7,9 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Custom Imports
-import HomePage from 'containers/HomePage'
-import LandingPage from 'containers/LandingPage'
-import ProfilePage from 'containers/ProfilePage'
+import HomePage from 'views/HomePage'
+import LandingPage from 'views/LandingPage'
+import ProfilePage from 'views/ProfilePage'
 import NavBar from 'components/NavBar/navbar';
 
 
@@ -18,6 +18,7 @@ function App() {
     <BrowserRouter>
     <NavBar/>
     <Switch>
+
         <Route path='/home' component={HomePage} />
         <Route path='/profile' component={ProfilePage} />
         <Route exact path='/' component={LandingPage} />

@@ -10,6 +10,9 @@ const initialState = {
   },
   refreshState: {
     reload: false
+  },
+  mode: {
+    dark: false
   }
 };
 
@@ -38,6 +41,13 @@ const reducer = (state, action) => {
           reload: action.payload.reload
         }
       };
+    case "SET_DARK_MODE":
+      return {
+        ...state,
+        mode: {
+          dark: action.payload.dark
+        }
+      }
     default:
       throw new Error();
   }

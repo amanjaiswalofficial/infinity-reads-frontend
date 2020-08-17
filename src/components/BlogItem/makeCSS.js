@@ -2,14 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
 
-    parentBox: {
-      padding: "0px", 
-      margin: "0px", 
-      background: "#355C7D",
-      borderRadius: "2px 2px"
-    },
     childBox: {
-      width: "80%",
+      width: "100%",
     },
     contentBox: {
       height: "80%"
@@ -19,11 +13,7 @@ export const useStyles = makeStyles((theme) => ({
       height: "100%"
     },
     root: {
-      color: "#FFFFFF",
       margin: "3px",
-    },
-    postedBy: {
-      float: "left"
     },
     links: {
       paddingLeft: "5px",
@@ -33,6 +23,9 @@ export const useStyles = makeStyles((theme) => ({
     }
     },
     zoomInClass: {
+      boxShadow: "3px 3px #6C5B7B",
+      border: "1px solid #355C7D",
+      borderRadius: "2px 2px",
       transform: "scale(1.015)",
       transition: "transform .2s",
       zIndex: 111
@@ -54,8 +47,45 @@ export const useStyles = makeStyles((theme) => ({
       background: "None",
       border: "None"
     },
-    actionButtons: {
-      float: "right",
+    parentBox: {
+      width: "100%", 
+      display: "flex"
+    },
+    spanTitle: {
+      fontSize: "24px"
+    },
+    title: {
+      background: "None", 
+      padding: "0px", 
+      decoration: "None", 
+      border: "None",
+      "&:hover": {
+        fontWeight: "bold"
+      }
+    },
+    profileButton: {
+      fontWeight: "bold",
+      marginLeft: "4px",
+      marginTop: "10px",
+      background: "None",
+      padding: "0px",
+      decoration: "None",
+      border: "None",
+      "&:hover": {
+        color: "#355C7D"
+      }
+    },
+    spanContent: {
+      width: "100%", 
+      fontWeight: "lighter", 
+      maxHeight: "100px"
+    },
+    content: {
+      fontWeight: "lighter",
+      maxWidth: "100px",
+    },
+    postedBy: {
+      width: "100%"
     }
   }));
   
