@@ -1,18 +1,15 @@
 // Library imports
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useMutation } from '@apollo/client';
 
 // Custom imports
 import { EDIT_BLOG } from 'utils/queries'
 import BlogDialog from 'components/BlogDialog/blogDialog'
-import { AppContext } from "context/appContext"
 import MutationDialog from 'components/MutationDialog/mutationDialog'
-import { REFRESH_STATE } from 'utils/constants';
 
 
 const EditBlog = ({data, active, handleClose}) => {
 
-    const [state, dispatch] = useContext(AppContext)
     const [blogDialogVisible, setBlogDialogVisible] = useState(false)
     const [mutationVisible, setMutationVisible] = useState(false)
 
@@ -29,18 +26,10 @@ const EditBlog = ({data, active, handleClose}) => {
     }, [active])
 
     const handleMutationClose = (code) => {
-        // if the edit operation is successful,
-        // update state to refresh component
-        if(code === 200){
-            dispatch({
-                type: REFRESH_STATE,
-                payload: {
-                  reload: true
-                }
-              })
-        }
         setMutationVisible(false)
-        handleClose()
+        
+        // send status code ahead to process and refresh if successful
+        handleClose(code)
     }
 
     const handleEditBlog = (id, title, content, user_id) => {
@@ -48,7 +37,8 @@ const EditBlog = ({data, active, handleClose}) => {
         setMutationVisible(true)
 
         // call GraphQL mutation
-        editBlog({variables: {id, title, content, user_id}}).catch(err => console.log(err))
+        editBlog({variables: {id, title, content, user_id}})
+        .catch(err => console.log(err))
     }
 
     // Return component that handles blogDialog and mutationDialog boxes

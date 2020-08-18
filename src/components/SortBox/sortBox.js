@@ -13,7 +13,7 @@ const SortBox = ({currentValue, handleValueChange}) => {
     const classes = useStyles()
 
     return (
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl variant="outlined" className={classes.parent}>
               <InputLabel id="demo-simple-select-outlined-label">Sort By</InputLabel>
               <Select
                 labelId="demo-simple-select-outlined-label"
@@ -22,7 +22,7 @@ const SortBox = ({currentValue, handleValueChange}) => {
                 className={classes.selectBox}
                 onChange={e => handleValueChange(e.target.value)}
                 label="Sort By"
-              >
+                >
                 <MenuItem value="">
                   <em>Choose One</em>
                 </MenuItem>

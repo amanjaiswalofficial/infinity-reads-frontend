@@ -1,28 +1,40 @@
-import React, {useContext} from 'react';
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
 
 import BlogContainer from 'containers/BlogContainer/blogContainer'
-import {AppContext} from "context/appContext"
+import SearchSortBar from "containers/SearchSortBar/searchSortBar"
+import FilterContainer from 'containers/FilterContainer/filterContainer';
+import NewBlogDialog from 'containers/NewBlogDialog/newBlogDialog';
 
 
 const HomePage = () => {
 
-  const [state] = useContext(AppContext);
-
   let searchParams = new URLSearchParams(window.location.search);
-  const userSearchBy = searchParams.get("searchBy")
-  const userListBy = searchParams.get("listBy")
-  const userFilterBy = searchParams.get("filterBy")
+  const userSearch = searchParams.get("searchBy")
+  const userList = searchParams.get("listBy")
+  const userFilter = searchParams.get("filterBy")
 
-  const queryValues = {
-    userSearchBy,
-    userListBy,
-    userFilterBy
+  const queryParams = {
+    userSearch,
+    userList,
+    userFilter
   }
 
   
   return (
       <div>
-        <BlogContainer queryValues={queryValues}/>
+        <Grid container style={{marginTop: "65px"}}>
+          <Grid xs={3} item>
+            <FilterContainer queryParams={queryParams}/>
+          </Grid>
+          <Grid xs={6} item>
+            <SearchSortBar queryParams={queryParams}/>
+            <BlogContainer queryParams={queryParams}/>
+          </Grid>
+          <Grid xs={3} item>
+            <NewBlogDialog/>
+          </Grid>
+        </Grid>
       </div>
   );
 }

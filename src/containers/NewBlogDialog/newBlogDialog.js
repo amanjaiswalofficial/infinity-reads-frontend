@@ -27,11 +27,9 @@ const NewBlogDialog = () => {
 
     const handlePostBlog = (id, title, content, user_id) => {
 
-        postBlog({variables: 
-            {user_id: user_id, 
-             title: title, 
-             content: content}
-            }).then(data => console.log(data)).catch(err => console.log(err))
+        postBlog({variables: {user_id: user_id, title: title, content: content}})
+        .catch(err => console.log(err))
+        
         setMsgVisibility(true)
         closeDialog()
         
@@ -41,7 +39,7 @@ const NewBlogDialog = () => {
 
         // if the postOperation was successful
         // reload the page to get latest blogs
-        if(code === 200){
+        if(code && code === 200){
             dispatch({
                 type: REFRESH_STATE,
                 payload: {
@@ -81,7 +79,8 @@ const NewBlogDialog = () => {
             dialogVisible={blogDialogVisible} 
             handleSubmit={handlePostBlog}
             handleClose={closeDialog}/>
-            <div className={classes.parentBlock}>
+
+            <div className={classes.parent}>
                 <button onClick={openDialog} className={classes.newBlogButton}>
                     <img src={post_blog_icon} className={classes.newIcon} alt=""/>
                 </button>
