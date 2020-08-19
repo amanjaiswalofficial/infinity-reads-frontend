@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
       display: "flex",
       marginTop: "10px",
+      flexDirection: "column", 
       justifyContent: "center",
       alignItems: "center",
     },
@@ -15,5 +16,9 @@ export const useStyles = makeStyles((theme) => ({
         paddingTop: "15%",
         paddingLeft: "42%",
         paddingRight: "43%"
+    },
+    pagination: {
+      marginTop: 10,
+      
     }
 }));

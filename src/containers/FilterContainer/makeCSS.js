@@ -14,20 +14,22 @@ export const useStyles = makeStyles((theme) => ({
       width: "98%",
       marginTop: "10px",
       justifyContent: "center",
+      position: "sticky",
+      top: 0
     },
     title: {
       fontSize: "20px",
       paddingTop: "9%",
       paddingBottom: "1%",
       paddingLeft: "6%",
-      fontWeight: "lighter",
+      fontWeight: "lighter"
     },
     submitButton: {  
       paddingLeft: "4%",
       '& > * + *': {
         height: "100%",
         width: "100%"
-      }
+      },
     },
     singleChoice: {
       border: "1px solid #FFFFFF",

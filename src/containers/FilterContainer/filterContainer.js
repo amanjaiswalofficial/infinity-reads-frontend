@@ -13,6 +13,7 @@ import SecondaryButton from 'components/Buttons/SecondaryButton/secondaryButton'
 import {HOME_PATH, REFRESH_STATE} from 'utils/constants'
 import {AppContext} from 'context/appContext'
 import {useStyles, theme} from './makeCSS'
+import {makeParams} from 'utils/helperFunctions'
 
 
 const FilterContainer = ({queryParams}) => {
@@ -48,22 +49,17 @@ const FilterContainer = ({queryParams}) => {
   };
 
   const handleClick = () => {
-    const newSearchParams = new URLSearchParams()    
-
-    if(userSearch){
-      newSearchParams.append("searchBy", userSearch)
-    }
-    if(userList){
-      newSearchParams.append("listBy", userList)
-    }
-    if(inputFilters && inputFilters.length > 0){
-      newSearchParams.append("filterBy", inputFilters.join(","))
-    }
     
+    const filterString = 
+      inputFilters.length > 0 ? 
+      inputFilters.join(",") : 
+      null
+    const newParams = makeParams({"filter": filterString})
+
     // update URL
     history.push({
       pathname: HOME_PATH,
-      search: newSearchParams.toString()
+      search: newParams.toString()
     })
 
     // dispatch action causing refetch blogs
@@ -73,51 +69,54 @@ const FilterContainer = ({queryParams}) => {
         reload: true
       }
     })
+    
   }
+    
 
   return (
     <MuiThemeProvider theme={theme}>
-    <div className={classes.parent}>
-      <div className={classes.title}>
-        Available Tags
+      <div className={classes.parent}>
+          <div className={classes.title}>
+            Available Tags
+          </div>
+          <div className={classes.root}>
+            <List>
+              {[0, 1, 2, 3].map((value) => {
+                const labelId = `checkbox-list-label-${value}`;
+                return (
+                  <ListItem 
+                  key={value} 
+                  role={undefined} 
+                  dense 
+                  button
+                  className={classes.singleChoice}
+                  onClick={handleToggle(value)}>
+                    <ListItemIcon>
+                      <Checkbox
+                        edge="start"
+                        checked={inputFilters.indexOf(value) !== -1}
+                        tabIndex={-1}
+                        disableRipple
+                        inputProps={{ 'aria-labelledby': labelId }}
+                      />
+                    </ListItemIcon>
+                    <ListItemText
+                    className={classes.singleChoiceText} 
+                    id={labelId} 
+                    primary={`Line item ${value + 1}`} />
+                  </ListItem>
+                );
+              })}
+            </List>
+          </div>
+          <div className={classes.submitButton}>
+            <SecondaryButton 
+            text={"Apply"} 
+            textColor={"#F67280"}  
+            handleClick={handleClick}/>
+          </div>
       </div>
-      <div className={classes.root}>
-        <List>
-          {[0, 1, 2, 3].map((value) => {
-            const labelId = `checkbox-list-label-${value}`;
-            return (
-              <ListItem 
-              key={value} 
-              role={undefined} 
-              dense 
-              button
-              className={classes.singleChoice}
-              onClick={handleToggle(value)}>
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={inputFilters.indexOf(value) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    inputProps={{ 'aria-labelledby': labelId }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                className={classes.singleChoiceText} 
-                id={labelId} 
-                primary={`Line item ${value + 1}`} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </div>
-      <div className={classes.submitButton}>
-        <SecondaryButton 
-        text={"Apply"} 
-        textColor={"#F67280"}  
-        handleClick={handleClick}/>
-      </div>
-    </div>
+      
     </MuiThemeProvider>
   );
 }

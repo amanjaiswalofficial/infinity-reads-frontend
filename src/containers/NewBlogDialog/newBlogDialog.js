@@ -59,7 +59,7 @@ const NewBlogDialog = () => {
     }
 
     return (
-        <div>
+        <div className={classes.parent}>
             {
                 postLoading || postError || postData  ? 
                 <MutationDialog
@@ -80,7 +80,7 @@ const NewBlogDialog = () => {
             handleSubmit={handlePostBlog}
             handleClose={closeDialog}/>
 
-            <div className={classes.parent}>
+            <div className={classes.root}>
                 <button onClick={openDialog} className={classes.newBlogButton}>
                     <img src={post_blog_icon} className={classes.newIcon} alt=""/>
                 </button>

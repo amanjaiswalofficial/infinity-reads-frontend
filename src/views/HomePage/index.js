@@ -10,14 +10,16 @@ import NewBlogDialog from 'containers/NewBlogDialog/newBlogDialog';
 const HomePage = () => {
 
   let searchParams = new URLSearchParams(window.location.search);
-  const userSearch = searchParams.get("searchBy")
-  const userList = searchParams.get("listBy")
-  const userFilter = searchParams.get("filterBy")
+  const userSearch = searchParams.get("search")
+  const userList = searchParams.get("sort")
+  const userFilter = searchParams.get("filter")
+  const userPage = searchParams.get("page")
 
   const queryParams = {
     userSearch,
     userList,
-    userFilter
+    userFilter,
+    userPage
   }
 
   
@@ -40,9 +42,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-
-
-// text d8d8d8
-// text 51ff0d
-// light black 1f1f1f
-// dark black 121212

@@ -9,6 +9,7 @@ import SortBox from 'components/SortBox/sortBox'
 import SecondaryButton from 'components/Buttons/SecondaryButton/secondaryButton';
 import {useStyles} from './makeCSS'
 import {HOME_PATH, REFRESH_STATE} from 'utils/constants'
+import {makeParams} from 'utils/helperFunctions'
 import { AppContext } from 'context/appContext'
 
 
@@ -29,22 +30,17 @@ const SearchSortBar = ({queryParams}) => {
       // if Enter key is pressed or A Button is clicked
       if(e.key === "Enter" || !e.key){
 
-        const newSearchParams = new URLSearchParams()    
+        let queryParams = {}
 
-        if(inputSearch){
-          newSearchParams.append("searchBy", inputSearch)
-        }
-        if(inputList){
-          newSearchParams.append("listBy", inputList)
-        }
-        if(userFilter){
-          newSearchParams.append("filterBy", userFilter)
-        }
-        
+        queryParams["search"] = inputSearch
+        queryParams["sort"] = inputList
+
+        const newParams = makeParams(queryParams)
+
         // update URL
         history.push({
           pathname: HOME_PATH,
-          search: newSearchParams.toString()
+          search: newParams.toString()
         })
 
         // dispatch action causing refetch blogs

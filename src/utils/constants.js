@@ -7,6 +7,12 @@ export const SAMPLE_DATA =
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. \
 Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 export const HOME_PATH = "/home"
+export const SEARCH_PARAMS = [
+    "search",
+    "sort",
+    "filter",
+    "page"
+]
 
 // Action types
 export const RESET_NAVBAR_PROPS = "RESET_NAVBAR_PROPS"

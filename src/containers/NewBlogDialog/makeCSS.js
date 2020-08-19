@@ -16,8 +16,12 @@ export const useStyles = makeStyles((theme) => ({
         }
     },
     parent: {
+        position: "sticky",
+        top: 60
+    },
+    root: {
         display: "grid",
         justifyContent: "right",
-        padding: "0px"
+        padding: "0px",
     }
   }));

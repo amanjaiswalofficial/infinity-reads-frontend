@@ -1,11 +1,12 @@
 // Library imports
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Loader from 'react-loader-spinner'
 import { useQuery } from '@apollo/client';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 // Custom imports
 import SingleBlog from 'containers/SingleBlog/singleBlog'
+import PaginationContainer from 'containers/PaginationContainer/pagContainer'
 import sampleBlogs from 'data/sampleBlogs.json'
 import {GET_BLOGS} from 'utils/queries'
 import {REFRESH_STATE} from 'utils/constants'
@@ -15,19 +16,23 @@ import {useStyles} from './makeCSS'
 
 const BlogContainer = ({queryParams}) => {
 
-  let {userSearch, userList, userFilter} = queryParams
+  let {userSearch, userList, userFilter, userPage} = queryParams
 
   const classes = useStyles();
 
   const [state, dispatch] = useContext(AppContext);
+  const [totalRecords, setTotalRecords] = useState(100)
 
   const { loading: blogLoading, 
           error: blogError, 
           data: blogData,
           refetch: blogRefetch} = useQuery(GET_BLOGS, {
             variables: {
-              searchBy: userSearch,
-              listBy: userList
+              search: userSearch,
+              sort: userList,
+              filter: userFilter,
+              start: parseInt(userPage),
+              limit: 10
             }
           });
 
@@ -79,6 +84,10 @@ const BlogContainer = ({queryParams}) => {
       <div className={classes.blogContainer}>
         {getBlogs()}
       </div>
+      {!blogLoading ? <PaginationContainer 
+      count={totalRecords}
+      currentPage={userPage}
+      queryParams={queryParams}/> : null}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_BLOGS = gql`
-query getBlogs($searchBy: String, $listBy: String){
-  blogs(searchBy: $searchBy, listBy: $listBy){
+query getBlogs($search: String, $sort: String, $filter: String, $start: Int, $limit: Int){
+  blogs(search: $search, sort: $sort, filter: $filter, start: $start, limit: $limit){
     data{
       title
       content
