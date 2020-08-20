@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = (mode) => {return makeStyles((theme) => ({
 
     childBox: {
       width: "100%",
@@ -14,6 +14,18 @@ export const useStyles = makeStyles((theme) => ({
     },
     root: {
       margin: "3px",
+      background: mode.bgMain,
+      border: mode.blogBorderColor,
+      borderRadius: mode.blogBorderRadius,
+      //boxShadow: "3px 3px #6C5B7B",
+      "&:hover": {
+        boxShadow: mode.blogShadow,
+        border: mode.blogBorderHover,
+        borderRadius: "2px 2px",
+        transform: "scale(1.015)",
+        transition: "transform .2s",
+        zIndex: 111
+      }
     },
     links: {
       paddingLeft: "5px",
@@ -55,6 +67,7 @@ export const useStyles = makeStyles((theme) => ({
       fontSize: "24px"
     },
     title: {
+      color: mode.heading,
       background: "None", 
       padding: "0px", 
       decoration: "None", 
@@ -64,12 +77,13 @@ export const useStyles = makeStyles((theme) => ({
       }
     },
     profileButton: {
-      fontWeight: "bold",
+      fontWeight: mode.authorWeight,
       marginLeft: "4px",
       marginTop: "10px",
       background: "None",
       padding: "0px",
       decoration: "None",
+      color: mode.heading,
       border: "None",
       "&:hover": {
         color: "#355C7D"
@@ -78,13 +92,16 @@ export const useStyles = makeStyles((theme) => ({
     spanContent: {
       width: "100%", 
       fontWeight: "lighter", 
-      maxHeight: "100px"
+      maxHeight: "100px",
+      color: mode.text
     },
     content: {
       fontWeight: "lighter",
       maxWidth: "100px",
+      color: mode.text
     },
     postedBy: {
       width: "100%"
     }
   }));
+}

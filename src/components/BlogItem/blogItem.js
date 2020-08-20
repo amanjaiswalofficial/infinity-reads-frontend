@@ -1,31 +1,25 @@
 // Library imports
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import EditSharpIcon from '@material-ui/icons/EditSharp';
 import DeleteOutlineSharpIcon from '@material-ui/icons/DeleteOutlineSharp';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 
 // Custom imports
-import {SAMPLE_DATA} from 'utils/constants'
-import {useStyles} from './makeCSS'
 import { AppContext } from "context/appContext"
-
+import {COLOR_MODE} from 'utils/constants'
+import {useStyles} from './makeCSS'
 
 const BlogItem = ({data, handleEdit, handleDelete}) => {
 
-  const classes = useStyles();
+  const {id, title, content, user_id, tags} = data
 
-  const {id, title, content, user_id} = data
-  const [hoverClass, setHoverClass] = useState(classes.zoomOutClass)
   const [state] = useContext(AppContext);
 
-  const zoomIn = () => {
-    setHoverClass(classes.zoomInClass)
-  }
+  // Change mode based on state
+  const colorMode = COLOR_MODE[state.theme.mode]
+  const classes = useStyles(colorMode)()
 
-  const zoomOut = () => {
-    setHoverClass(classes.zoomOutClass)
-  }
 
   // Return a single blogItem component with options to
   // 1.Read more on blog
@@ -35,10 +29,8 @@ const BlogItem = ({data, handleEdit, handleDelete}) => {
 
     <Grid 
     item xs={12} 
-    className={`${classes.root} ${hoverClass}`} 
-    style={{padding: "10px"}} 
-    onMouseEnter={zoomIn} 
-    onMouseLeave={zoomOut} 
+    className={`${classes.root}`} 
+    style={{padding: "10px"}}  
     >
       <div className={classes.parentBox}>
         <span className={classes.spanTitle}>
@@ -49,11 +41,16 @@ const BlogItem = ({data, handleEdit, handleDelete}) => {
         </span>
       </div>
       <div className={classes.spanContent}>
-        {content} {SAMPLE_DATA}
+        {content}
       </div>
       <div className={classes.postedBy}>
-        <span className={classes.content}>posted by</span>
-        <button className={classes.profileButton}>{user_id}</button>
+        <div>
+          <span className={classes.content}>tags: </span>
+          <span className={classes.content}>{tags.join(",")}</span>
+        </div>
+        <div>
+          <span className={classes.content}>posted by</span>
+          <button className={classes.profileButton}>{user_id}</button>
         <span className={classes.actionButtons}>
               {
                 state.user.user_id === user_id ?
@@ -72,13 +69,14 @@ const BlogItem = ({data, handleEdit, handleDelete}) => {
                   onClick={e => handleDelete(id)}>
                   <Tooltip title="Delete">
                     <DeleteOutlineSharpIcon 
-                    color="action" 
+                    color="secondary" 
                     className={classes.deleteButton}/>
                   </Tooltip>
                   </button>
                 </span>: null
               }
           </span>
+          </div>
       </div>
     </Grid>
   );

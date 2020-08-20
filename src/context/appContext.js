@@ -11,9 +11,9 @@ const initialState = {
   refreshState: {
     reload: false
   },
-  mode: {
-    dark: false
-  }
+  theme: {
+    mode: "light"
+  },
 };
 
 const reducer = (state, action) => {
@@ -41,11 +41,11 @@ const reducer = (state, action) => {
           reload: action.payload.reload
         }
       };
-    case "SET_DARK_MODE":
+    case "CHANGE_MODE":
       return {
         ...state,
-        mode: {
-          dark: action.payload.dark
+        theme: {
+          mode: action.payload.mode
         }
       }
     default:

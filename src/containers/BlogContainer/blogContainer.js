@@ -1,5 +1,5 @@
 // Library imports
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Loader from 'react-loader-spinner'
 import { useQuery } from '@apollo/client';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
@@ -8,9 +8,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import SingleBlog from 'containers/SingleBlog/singleBlog'
 import PaginationContainer from 'containers/PaginationContainer/pagContainer'
 import sampleBlogs from 'data/sampleBlogs.json'
-import {GET_BLOGS} from 'utils/queries'
-import {REFRESH_STATE} from 'utils/constants'
-import {AppContext} from "context/appContext"
+import { GET_BLOGS } from 'utils/queries'
+import { BLOG_LIMIT } from 'utils/constants'
 import {useStyles} from './makeCSS'
 
 
@@ -20,34 +19,52 @@ const BlogContainer = ({queryParams}) => {
 
   const classes = useStyles();
 
-  const [state, dispatch] = useContext(AppContext);
-  const [totalRecords, setTotalRecords] = useState(100)
+  const [totalPages, setTotalPages] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const { loading: blogLoading, 
-          error: blogError, 
-          data: blogData,
-          refetch: blogRefetch} = useQuery(GET_BLOGS, {
+  const { 
+    loading: blogLoading, 
+    error: blogError, 
+    data: blogData
+        } = useQuery(GET_BLOGS, {
             variables: {
               search: userSearch,
               sort: userList,
               filter: userFilter,
-              start: parseInt(userPage),
-              limit: 10
+              start: (parseInt(userPage)-1)*10,
+              limit: BLOG_LIMIT
             }
           });
 
-  // If true, reload the page to update blogs content
   useEffect(() => {
-    if(state.refreshState.reload){
-      dispatch({
-        type: REFRESH_STATE,
-        payload: {
-          reload: false
-        }
-      })
-      blogRefetch()
+    
+    // on getting information about total pages
+    // set currentPage value to userPage if userPage < totalPage
+    // else set it to 1
+    if(totalPages > 0)
+    {  
+      let userCurrentPage = 
+        parseInt(userPage) && parseInt(userPage) <= totalPages ? 
+        parseInt(userPage) : 
+        1
+      setCurrentPage(userCurrentPage)
     }
-  }, [state.refreshState.reload, dispatch, blogRefetch])
+
+  }, [totalPages, currentPage, userPage])
+
+  useEffect(() => {
+
+    // when blogData received, also find out total pages
+    // and convert it into equally divided pages
+    // Ex - 17 = Math.ceil(17/10) = 2 pages
+    if(blogData && totalPages === 0) {
+
+      let totalRecords = blogData.blogs.data.total_count
+      setTotalPages(Math.ceil(totalRecords/10))
+
+    }
+
+  }, [blogData, totalPages])
           
 
   // run query to fetch Blogs
@@ -71,10 +88,13 @@ const BlogContainer = ({queryParams}) => {
           )
     }
 
-    
-    return blogData.blogs.data.map((singleBlog) => (
+    if (blogData){
+      
+      return blogData.blogs.data.blogs.map((singleBlog) => (
           <SingleBlog data={singleBlog}/>
-    ))
+      ))
+    }
+    
   }
 
   return (
@@ -84,10 +104,14 @@ const BlogContainer = ({queryParams}) => {
       <div className={classes.blogContainer}>
         {getBlogs()}
       </div>
-      {!blogLoading ? <PaginationContainer 
-      count={totalRecords}
-      currentPage={userPage}
-      queryParams={queryParams}/> : null}
+      {
+        currentPage > 0 ? 
+        <PaginationContainer 
+        count={totalPages}
+        currentPage={currentPage}
+        queryParams={queryParams}/> : 
+        null
+      }
     </div>
   );
 }

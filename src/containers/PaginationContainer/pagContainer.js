@@ -1,28 +1,40 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Pagination from '@material-ui/lab/Pagination';
 import { useHistory } from 'react-router-dom';
 
-import { HOME_PATH } from 'utils/constants';
+import { HOME_PATH, COLOR_MODE } from 'utils/constants';
 import {makeParams} from 'utils/helperFunctions'
+import { AppContext } from 'context/appContext';
+import {useStyles} from './makeCSS'
 
 const PaginationContainer = ({count, currentPage}) => {
 
-    const page = parseInt(currentPage) ? parseInt(currentPage) : 1
     const history = useHistory();
+    const [state] = useContext(AppContext)
+
+    // Change mode based on state
+    const colorMode = COLOR_MODE[state.theme.mode]
+    const classes = useStyles(colorMode)()
 
     const handleChange = (e, page) => {
 
         const newParams = makeParams({"page": page}, false)
 
-        history.push({
+    // update the URL with new params
+    history.push({
             pathname: HOME_PATH,
             search: newParams.toString()
-          })
+            })
 
     }
     return (
-        <div style={{marginTop: 20, marginBottom: 20}}>
-           <Pagination page={page} count={count/10} color="primary" onChange={handleChange}/>
+        <div className={classes.parent}>
+           <Pagination 
+           classes={{root: classes.root}} 
+           page={currentPage} 
+           count={count} 
+           color="primary" 
+           onChange={handleChange}/>
         </div>
     )
 }

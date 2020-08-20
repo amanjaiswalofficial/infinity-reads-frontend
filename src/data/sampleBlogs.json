@@ -3,61 +3,91 @@
         "id": 1,
         "title": "First Blog",
         "content": "Some content about first blog",
-        "user_id": "adminUser@123"
+        "user_id": "adminUser@123",
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 2,
         "title": "Second Blog",
         "content": "Some content about second blog",
-        "user_id": 43211234
+        "user_id": 43211234,
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 3,
         "title": "Third Blog",
         "content": "Some content about third blog",
-        "user_id": 12344321
+        "user_id": 12344321,
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 1,
         "title": "First Blog",
         "content": "Some content about first blog",
-        "user_id": "adminUser@123"
+        "user_id": "adminUser@123",
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 2,
         "title": "Second Blog",
         "content": "Some content about second blog",
-        "user_id": 43211234
+        "user_id": 43211234,
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 3,
         "title": "Third Blog",
         "content": "Some content about third blog",
-        "user_id": 12344321
+        "user_id": 12344321,
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 1,
         "title": "First Blog",
         "content": "Some content about first blog",
-        "user_id": "adminUser@123"
+        "user_id": "adminUser@123",
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 2,
         "title": "Second Blog",
         "content": "Some content about second blog",
-        "user_id": 43211234
+        "user_id": 43211234,
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 3,
         "title": "Third Blog",
         "content": "Some content about third blog",
-        "user_id": 12344321
+        "user_id": 12344321,
+        "tags": [
+            "Sample Tag"
+        ]
     },
     {
         "id": 1,
         "title": "First Blog",
         "content": "Some content about first blog",
-        "user_id": "adminUser@123"
+        "user_id": "adminUser@123",
+        "tags": [
+            "Sample Tag"
+        ]
     }
   ]
   

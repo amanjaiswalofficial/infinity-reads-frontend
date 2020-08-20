@@ -21,6 +21,7 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
 
   const [state] = useContext(AppContext)
   const [title, setTitle] = useState("")
+  const [tags, setTags] = useState("")
   const [content, setContent] = useState("")
   
   const {user_id} = state.user
@@ -37,6 +38,12 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
   useEffect(() => {
     if(data && data.content){
       setContent(data.content)
+    }
+  }, [data])
+
+  useEffect(() => {
+    if(data && data.tags){
+      setContent(data.tags)
     }
   }, [data])
 
@@ -96,10 +103,22 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                             value={content}
                             />
                 </Box>
+                <Box p={0.5}>
+                    <TextField
+                            style={{}}
+                            id="outlined-multiline-static"
+                            label="Give A Tag"
+                            multiline
+                            fullWidth={true}
+                            variant="outlined"
+                            onChange={e => setTags(e.target.value)}
+                            value={tags}
+                            />
+                </Box>
                 <Box p={0.5} style={{justifyContent: "center", display: "flex"}}>
                     <PrimaryButton 
                     text={"Submit"}
-                    handleClick={e => handleSubmit(data.id, title, content, user_id)}
+                    handleClick={e => handleSubmit(data.id, title, content, user_id, tags)}
                     />
                     <SecondaryButton 
                     textColor={"#F67280"} 

@@ -1,5 +1,5 @@
 // Library imports
-import React, {useState, useContext} from 'react'
+import React, {useState} from 'react'
 import Grid from '@material-ui/core/Grid'
 import { useHistory} from 'react-router'
 
@@ -8,21 +8,19 @@ import SearchBar from 'components/SearchBar/searchBar'
 import SortBox from 'components/SortBox/sortBox'
 import SecondaryButton from 'components/Buttons/SecondaryButton/secondaryButton';
 import {useStyles} from './makeCSS'
-import {HOME_PATH, REFRESH_STATE} from 'utils/constants'
+import {HOME_PATH} from 'utils/constants'
 import {makeParams} from 'utils/helperFunctions'
-import { AppContext } from 'context/appContext'
 
 
 
 const SearchSortBar = ({queryParams}) => {
 
 
-    const {userSearch, userList, userFilter} = queryParams
+    const {userSearch, userList} = queryParams
 
     const classes = useStyles();
     const history = useHistory()
 
-    const [state, dispatch] = useContext(AppContext)
     const [inputSearch, setInputSearch] = useState(userSearch)
     const [inputList, setInputList] = useState(userList)
 
@@ -37,20 +35,12 @@ const SearchSortBar = ({queryParams}) => {
 
         const newParams = makeParams(queryParams)
 
-        // update URL
+        // update the URL with new params
         history.push({
           pathname: HOME_PATH,
           search: newParams.toString()
         })
-
-        // dispatch action causing refetch blogs
-        dispatch({
-          type: REFRESH_STATE,
-          payload: {
-            reload: true
-            }
-          })
-        }
+      }
     }
 
 

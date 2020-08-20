@@ -6,6 +6,7 @@ import Poster from 'components/Poster/poster'
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton'
 import SecondaryButton from 'components/Buttons/SecondaryButton/secondaryButton'
 import {useStyles} from "./makeCSS"
+import { HOME_PATH } from 'utils/constants';
 
 const Billboard = ({imageSrc}) => {
 
@@ -15,7 +16,8 @@ const Billboard = ({imageSrc}) => {
 
     const handleFirstButton = () => {
 
-        let path = `/home`; 
+        // update the URL with new params
+        let path = HOME_PATH; 
         history.push(path);
 
     }

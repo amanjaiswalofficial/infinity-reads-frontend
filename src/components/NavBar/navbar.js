@@ -2,45 +2,68 @@
 import React, {useContext, useState} from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 
 // Custom imports
 import { useStyles } from './makeCSS'
-import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
-import {DEFAULT_APP_BAR_HEIGHT, SET_DARK_MODE} from 'utils/constants'
+import { DEFAULT_APP_BAR_HEIGHT, 
+         CHANGE_MODE,
+         LIGHT_MODE,
+         DARK_MODE, 
+         LANDING_PAGE_PATH } from 'utils/constants'
 import { AppContext } from "context/appContext"
 
 const NavBar = () => {
 
     const [state, dispatch] = useContext(AppContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [mode, setMode] = useState(state.mode.dark);
+    const [mode, setMode] = useState(false);
     const open = Boolean(anchorEl);
+    
     const history = useHistory();
     const classes = useStyles();
 
     const getClass = () => {
 
-        const {overImage, scrollAmount, imageHeight} = state.propsNavbar
-        return overImage && scrollAmount < imageHeight - DEFAULT_APP_BAR_HEIGHT ? classes.navInvisible : classes.navVisible
+        const { overImage, scrollAmount, imageHeight } = state.propsNavbar
+        return overImage && scrollAmount < 
+            imageHeight - DEFAULT_APP_BAR_HEIGHT ? 
+            classes.navInvisible : classes.navVisible
     }        
-      const handleMenu = (event) => {
+    
+    const handleMenu = (event) => {
         
         setAnchorEl(event.currentTarget);
       };
 
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
+    const handleClose = () => {
+    setAnchorEl(null);
+        };
 
 
+    // update the URL with new params
     const goHome = () => {
-        let path = `/`; 
+        let path = LANDING_PAGE_PATH; 
         history.push(path);
+    }
+
+    // update the theme mode from light to dark and viceversa
+    const changeMode = () => {
+        setMode(!mode)
+        dispatch({
+            type: CHANGE_MODE,
+            payload: {
+              mode: !mode ? DARK_MODE : LIGHT_MODE
+            }
+          })
     }
 
     return (
@@ -52,7 +75,20 @@ const NavBar = () => {
                                     Infinity Reads
                                 </button>
                             </Typography>
+                            <Tooltip title="Dark Mode">
+                            <FormControlLabel
+                                    style={{marginTop: 8}}
+                                    control={
+                                        <Switch 
+                                            checked={state.mode} 
+                                            onChange={changeMode}
+                                        />}
+                                />
+                            </Tooltip>
+                            <Typography role="">
                                 {state.user.user_id}
+                            </Typography>
+                                
                             <IconButton
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
