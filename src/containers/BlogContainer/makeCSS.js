@@ -1,14 +1,24 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles((theme) => ({
-    root: {
+    parent: {
       flexGrow: 1,
-      marginTop: "65px",
-      justifyContent: "center"
+      display: "flex",
+      marginTop: "10px",
+      flexDirection: "column", 
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    blogContainer: {
+      width: "98%",
     },
     loader: {
-        height: 80,
-        width: 80,
-        marginTop: "15%"
+        paddingTop: "15%",
+        paddingLeft: "42%",
+        paddingRight: "43%"
+    },
+    pagination: {
+      marginTop: 10,
+      
     }
-  }));
+}));

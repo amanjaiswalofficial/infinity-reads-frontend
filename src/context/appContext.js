@@ -10,7 +10,10 @@ const initialState = {
   },
   refreshState: {
     reload: false
-  }
+  },
+  theme: {
+    mode: "light"
+  },
 };
 
 const reducer = (state, action) => {
@@ -38,6 +41,13 @@ const reducer = (state, action) => {
           reload: action.payload.reload
         }
       };
+    case "CHANGE_MODE":
+      return {
+        ...state,
+        theme: {
+          mode: action.payload.mode
+        }
+      }
     default:
       throw new Error();
   }

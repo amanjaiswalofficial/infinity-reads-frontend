@@ -1,22 +1,23 @@
 // Library imports
 import React, {useState, useContext } from 'react'
 import { useMutation } from '@apollo/client';
+import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoTone';
 
 // Custom imports
 import {AppContext} from "context/appContext"
 import MutationDialog from 'components/MutationDialog/mutationDialog'
 import BlogDialog from 'components/BlogDialog/blogDialog'
 import {POST_BLOG} from 'utils/queries'
-import post_blog_icon from 'assets/img/new_blog.png'
 import {useStyles} from './makeCSS'
 import { REFRESH_STATE } from 'utils/constants';
+import { Tooltip } from '@material-ui/core';
 
 
 const NewBlogDialog = () => {
 
     const classes = useStyles()
 
-    const [dispatch] = useContext(AppContext)
+    const [state, dispatch] = useContext(AppContext)
     const [msgVisibility, setMsgVisibility] = useState(false)
     const [blogDialogVisible, setBlogDialogVisible] = useState(false)
     
@@ -25,13 +26,15 @@ const NewBlogDialog = () => {
               loading: postLoading, 
               error: postError} ] = useMutation(POST_BLOG)
 
-    const handlePostBlog = (_id, title, content, user_id) => {
+    const handlePostBlog = (id, title, content, user_id, tags) => {
 
-        postBlog({variables: 
-            {user_id: user_id, 
-             title: title, 
-             content: content}
-            }).then(data => console.log(data)).catch(err => console.log(err))
+        postBlog({variables: {
+            user_id: user_id, 
+            title: title, 
+            content: content, 
+            tags: [tags]}})
+        .catch(err => console.log(err))
+        
         setMsgVisibility(true)
         closeDialog()
         
@@ -41,7 +44,7 @@ const NewBlogDialog = () => {
 
         // if the postOperation was successful
         // reload the page to get latest blogs
-        if(code === 200){
+        if(code && code === 200){
             dispatch({
                 type: REFRESH_STATE,
                 payload: {
@@ -61,7 +64,7 @@ const NewBlogDialog = () => {
     }
 
     return (
-        <div>
+        <div className={classes.parent}>
             {
                 postLoading || postError || postData  ? 
                 <MutationDialog
@@ -81,10 +84,17 @@ const NewBlogDialog = () => {
             dialogVisible={blogDialogVisible} 
             handleSubmit={handlePostBlog}
             handleClose={closeDialog}/>
-            <div className={classes.parentBlock}>
-                <button onClick={openDialog} className={classes.newBlogButton}>
-                    <img src={post_blog_icon} className={classes.newIcon} alt=""/>
-                </button>
+
+            <div className={classes.root}>
+                <Tooltip title="Create New">
+                    <button 
+                    onClick={openDialog} 
+                    className={classes.newBlogButton}>
+                        <AddCircleOutlineTwoToneIcon 
+                        color="secondary" 
+                        fontSize="large"/>
+                    </button>
+                </Tooltip>
             </div>
         </div>
     )

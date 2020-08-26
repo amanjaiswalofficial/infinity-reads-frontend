@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),        
         textAlign: 'center',
         alignItems: 'center',
-        color: theme.palette.text.secondary,
+        color: theme.palette.text.primary,
       },
       githubLogo: {
         borderRadius: "50%",

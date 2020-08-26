@@ -61,12 +61,8 @@ const MutationDialog = ({action,
       return (
         <div className={classes.snackBar}>
           <Snackbar 
-            anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-            }}
             open={visibleState} 
-            autoHideDuration={6000} 
+            autoHideDuration={5000} 
             onClose={handleClose}>
             <Alert 
             onClose={handleClose} 
@@ -85,7 +81,7 @@ const MutationDialog = ({action,
         <div className={classes.snackBar}>
           <Snackbar 
           open={visibleState} 
-          autoHideDuration={6000} 
+          autoHideDuration={2000} 
           onClose={e => handleClose(code)}
           >
             <Alert 

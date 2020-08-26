@@ -1,79 +1,71 @@
 // Library imports
-import React, {useState, useContext, useEffect} from 'react';
-import Grid from '@material-ui/core/Grid';
+import React, {useEffect, useState} from 'react';
 import Loader from 'react-loader-spinner'
 import { useQuery } from '@apollo/client';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 // Custom imports
-import BlogItem from 'components/BlogItem/blogItem'
-import NewBlogDialog from 'containers/NewBlogDialog/newBlogDialog'
-import DeleteBlog from "containers/DeleteBlog/deleteBlog"
-import EditBlog from "containers/EditBlog/editBlog"
+import SingleBlog from 'containers/SingleBlog/singleBlog'
+import PaginationContainer from 'containers/PaginationContainer/pagContainer'
 import sampleBlogs from 'data/sampleBlogs.json'
-import {GET_BLOGS} from 'utils/queries'
-import {REFRESH_STATE} from 'utils/constants'
-import {AppContext} from "context/appContext"
+import { GET_BLOGS } from 'utils/queries'
+import { BLOG_LIMIT } from 'utils/constants'
 import {useStyles} from './makeCSS'
 
 
-const BlogContainer = () => {
+const BlogContainer = ({queryParams}) => {
+
+  let {userSearch, userList, userFilter, userPage} = queryParams
 
   const classes = useStyles();
-  
-  const [state, dispatch] = useContext(AppContext);
-  const [editVisible, setEditVisible] = useState(false)  
-  const [deleteVisible, setDeleteVisible] = useState(false)
-  const [data, setData] = useState({})
-  
 
-  const { loading: blogLoading, 
-          error: blogError, 
-          data: blogData} = useQuery(GET_BLOGS);
-  
-  // If true, reload the page to update blogs content
+  const [totalPages, setTotalPages] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const { 
+    loading: blogLoading, 
+    error: blogError, 
+    data: blogData
+        } = useQuery(GET_BLOGS, {
+            variables: {
+              search: userSearch,
+              sort: userList,
+              filter: userFilter,
+              start: (parseInt(userPage)-1)*10,
+              limit: BLOG_LIMIT
+            }
+          });
+
   useEffect(() => {
-    if(state.refreshState.reload){
-      dispatch({
-        type: REFRESH_STATE,
-        payload: {
-          reload: false
-        }
-      })
-      window.location.reload(false)
+    
+    // on getting information about total pages
+    // set currentPage value to userPage if userPage < totalPage
+    // else set it to 1
+    if(totalPages > 0)
+    {  
+      let userCurrentPage = 
+        parseInt(userPage) && parseInt(userPage) <= totalPages ? 
+        parseInt(userPage) : 
+        1
+      setCurrentPage(userCurrentPage)
     }
-  }, [state.refreshState.reload, dispatch])
+
+  }, [totalPages, currentPage, userPage])
+
+  useEffect(() => {
+
+    // when blogData received, also find out total pages
+    // and convert it into equally divided pages
+    // Ex - 17 = Math.ceil(17/10) = 2 pages
+    if(blogData && totalPages === 0) {
+
+      let totalRecords = blogData.blogs.data.total_count
+      setTotalPages(Math.ceil(totalRecords/10))
+
+    }
+
+  }, [blogData, totalPages])
           
-
-  const handleEditOpen = (_id, user_id, title, content) => {
-    
-    const blogData = {
-      _id, user_id, title, content
-    }
-
-    setData(blogData)
-    // enable editBlog component
-    setEditVisible(true)
-  }
-
-  const handleDeleteOpen = (_id) => {
-    
-    const blogData = {
-      _id: _id
-    }
-
-    setData(blogData)
-    // enable deleteBlog component
-    setDeleteVisible(true)
-  }
-
-  const handleDeleteClose = () => {
-    setDeleteVisible(false)
-  }
-
-  const handleEditClose = () => {
-    setEditVisible(false)
-  }
 
   // run query to fetch Blogs
   const getBlogs = () => {
@@ -91,38 +83,34 @@ const BlogContainer = () => {
     if (blogError) {
       // displaying sample data in case of error
       return sampleBlogs.map((data) => (
-            <BlogItem 
-            handleEdit={handleEditOpen}
-            handleDelete={handleDeleteOpen}
-            data={data}/>
+            <SingleBlog data={data}/>
             )
           )
     }
 
-    
-    return blogData.blogs.data.map((singleBlog) => (
-          <BlogItem 
-            handleEdit={handleEditOpen}
-            handleDelete={handleDeleteOpen}
-            data={singleBlog}/>
-    ))
+    if (blogData){
+      return blogData.blogs.data.blogs.map((singleBlog) => (
+          <SingleBlog data={singleBlog}/>
+      ))
+    }
   }
 
   return (
-    <div data-testId="blog-container">
-          <Grid container spacing={3} className={classes.root}>
-            {getBlogs()}
-          </Grid>
-          <NewBlogDialog/>
-          <DeleteBlog 
-          data={data}
-          active={deleteVisible}
-          handleClose={handleDeleteClose}/>
-          <EditBlog
-          data={data}
-          active={editVisible}
-          handleClose={handleEditClose}/>
+    <div 
+    data-testId="blog-container-parent" 
+    className={classes.parent}>
+      <div className={classes.blogContainer} data-testid="blog-container">
+        {getBlogs()}
       </div>
+      {
+        currentPage > 0 ? 
+        <PaginationContainer 
+        count={totalPages}
+        currentPage={currentPage}
+        queryParams={queryParams}/> : 
+        null
+      }
+    </div>
   );
 }
 

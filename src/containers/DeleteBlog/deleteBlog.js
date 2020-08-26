@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client';
 // Custom imports
 import MessageDialog from 'components/MessageDialog/messageDialog'
 import {DELETE_BLOG} from 'utils/queries'
-import {REFRESH_STATE} from 'utils/constants'
+import { REFRESH_STATE } from 'utils/constants'
 import {AppContext} from "context/appContext"
 import MutationDialog from 'components/MutationDialog/mutationDialog'
 
@@ -15,7 +15,7 @@ const DeleteBlog = ({data, active, handleClose}) => {
 
     const [messageVisible, setMessageVisible] = useState(false)
     const [mutationVisible, setMutationVisible] = useState(false)
-    const [dispatch] = useContext(AppContext);
+    const [state ,dispatch] = useContext(AppContext);
     
     const [deleteBlog, 
         { loading: deleteLoading, 
@@ -36,7 +36,7 @@ const DeleteBlog = ({data, active, handleClose}) => {
         setMessageVisible(false)
         
         // Call GraphQL mutation with required variable
-        deleteBlog({variables: {_id: data._id}}).catch(err => console.log(err))
+        deleteBlog({variables: {id: data.id}}).catch(err => console.log(err))
         setMutationVisible(true)
     }
 
@@ -81,7 +81,7 @@ const DeleteBlog = ({data, active, handleClose}) => {
                 
             }
             <MessageDialog
-            message={`Delete this blog with id: ${data._id}?`} 
+            message={`Delete this blog with id: ${data.id}?`} 
             visibleState={messageVisible}
             handlePrimary={callDeleteBlog}
             handleSecondary={handleMessageClose}
