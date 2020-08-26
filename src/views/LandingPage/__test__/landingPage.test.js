@@ -15,7 +15,7 @@ afterEach(() => {
 // test if all components rendered correctly as well
 it("Landing page rendered correctly", () => {
     const {getByRole} = render(<LandingPage/>)
-    expect(getByRole("main")).toHaveTextContent("Infinity Reads")
+    expect(getByRole("main")).toHaveTextContent("Aman Jaiswal")
 })
 
 // test if all profile cards in Contributors rendered correctly

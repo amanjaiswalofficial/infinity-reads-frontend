@@ -14,8 +14,7 @@ import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
 
 // Custom imports
 import { useStyles } from './makeCSS'
-import { DEFAULT_APP_BAR_HEIGHT, 
-         CHANGE_MODE,
+import { CHANGE_MODE,
          LIGHT_MODE,
          DARK_MODE, 
          LANDING_PAGE_PATH } from 'utils/constants'
@@ -29,15 +28,7 @@ const NavBar = () => {
     const open = Boolean(anchorEl);
     
     const history = useHistory();
-    const classes = useStyles();
-
-    const getClass = () => {
-
-        const { overImage, scrollAmount, imageHeight } = state.propsNavbar
-        return overImage && scrollAmount < 
-            imageHeight - DEFAULT_APP_BAR_HEIGHT ? 
-            classes.navInvisible : classes.navVisible
-    }        
+    const classes = useStyles();       
     
     const handleMenu = (event) => {
         
@@ -77,7 +68,7 @@ const NavBar = () => {
                             </Typography>
                             <Tooltip title="Dark Mode">
                             <FormControlLabel
-                                    style={{marginTop: 8}}
+                                    classes={{root: classes.switch}}
                                     control={
                                         <Switch 
                                             checked={state.mode} 

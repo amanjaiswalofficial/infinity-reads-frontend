@@ -109,7 +109,7 @@ const FilterContainer = ({queryParams}) => {
       {
         getFilters()
       }
-      <div className={classes.parent}>
+      <div className={classes.parent} data-testid="filter-container">
         {
           filterLoading 
           ?

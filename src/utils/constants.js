@@ -37,6 +37,26 @@ export const DEFAULT_FILTER_TAGS = [
     "Sample Tag 2", 
     "Sample Tag 3"
 ]
+export const DEFAULT_BLOGS = [
+  {
+      "id": 1,
+      "title": "First Blog",
+      "content": "Some content about first blog",
+      "user_id": "adminUser@123",
+      "tags": [
+          "Sample Tag"
+      ]
+  },
+  {
+      "id": 2,
+      "title": "Second Blog",
+      "content": "Some content about second blog",
+      "user_id": 43211234,
+      "tags": [
+          "Sample Tag"
+      ]
+  }
+]
 export const BLOG_LIMIT = 10
 
 // Action types

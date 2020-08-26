@@ -30,7 +30,9 @@ export const useStyles = makeStyles((theme) => ({
       animationDuration: "0.5s",
       animationName: "$resetVisibility"
     },
-  
+    switch : {
+      marginTop: 8
+    },
     "@keyframes resetVisibility": {
       "from": {
           background: "#355C7D"

@@ -89,19 +89,17 @@ const BlogContainer = ({queryParams}) => {
     }
 
     if (blogData){
-      
       return blogData.blogs.data.blogs.map((singleBlog) => (
           <SingleBlog data={singleBlog}/>
       ))
     }
-    
   }
 
   return (
     <div 
-    data-testId="blog-container" 
+    data-testId="blog-container-parent" 
     className={classes.parent}>
-      <div className={classes.blogContainer}>
+      <div className={classes.blogContainer} data-testid="blog-container">
         {getBlogs()}
       </div>
       {

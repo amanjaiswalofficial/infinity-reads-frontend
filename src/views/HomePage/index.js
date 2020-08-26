@@ -33,7 +33,7 @@ const HomePage = () => {
 
   
   return (
-      <div className={classes.body}>
+      <div className={classes.body} role="main">
         <Grid container className={classes.root}>
           <Grid xs={3} item>
             <FilterContainer queryParams={queryParams}/>
