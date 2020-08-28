@@ -73,7 +73,7 @@ export const COLOR_MODE = {
         colorSecondary: '#355C7D',
         body: "#FFFFFF",
         heading: "#222222",
-        text: "#000000",
+        text: "#111111",
         bgMain: "#FFFFFF",
         // blogItem related CSS,
         blogBorderColor: "none",
@@ -87,7 +87,15 @@ export const COLOR_MODE = {
         choiceTextHover: "#355C7D",
 
         // pagination related CSS
-        pagBorderRadius: "0px 0px"
+        pagBorderRadius: "0px 0px",
+
+        //blogDialog related CSS
+        textBoxBorderOnFocus: "2px solid #355C7D",
+        textBoxBgOnFocus: "#FFFFFF",
+        textBoxTitleColor: "#355C7D",
+
+        //messageDialog related CSS
+        messageTextColor: "aed1ff" 
     },
     dark : {
         colorSecondary: '#15F4EE',
@@ -109,6 +117,14 @@ export const COLOR_MODE = {
         choiceTextHover: "#15F4EE",
         
         //paginationBox related CSS
-        pagBorderRadius: "3px 3px"
+        pagBorderRadius: "3px 3px",
+
+        //blogDialog related CSS
+        textBoxBorderOnFocus: "2px solid #15F4EE",
+        textBoxBgOnFocus: "#ffffff",
+        textBoxTitleColor: "#15F4EE",
+
+        //messageDialog related CSS
+        messageTextColor: "#aed1ff" 
     }
 }

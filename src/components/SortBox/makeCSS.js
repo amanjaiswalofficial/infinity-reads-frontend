@@ -9,6 +9,25 @@ export const useStyles = (mode) => {return makeStyles((theme) => ({
     selectBox: {
       color: mode.text,
       background: mode.bgMain,
+      '&:before': {
+        borderColor: mode.textBoxBorderOnFocus,
+    },
+    '&:after': {
+        borderColor: mode.textBoxBorderOnFocus,
+    }
+    },
+    notchedOutline: {},
+      focused: {
+        '&$focused $notchedOutline': {
+          border: mode.textBoxBorderOnFocus
+      },
+        "&$focused": {
+          color: mode.textSecondary
+        }
+      },
+      root: {
+        background: mode.bgMain,
+        color: mode.text
     }
   }));
 }

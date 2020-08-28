@@ -13,13 +13,17 @@ import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton'
 import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
 import { AppContext } from "context/appContext"
 import {useStyles, theme} from "./makeCSS"
+import {COLOR_MODE} from 'utils/constants'
 
 
 const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
 
-  const classes = useStyles();
-
+  
   const [state] = useContext(AppContext)
+  
+  const colorMode = COLOR_MODE[state.theme.mode]
+  const classes = useStyles(colorMode)()
+
   const [title, setTitle] = useState("")
   const [tags, setTags] = useState("")
   const [content, setContent] = useState("")
@@ -63,7 +67,7 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
         }}
       >
         <Fade in={dialogVisible}>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme(colorMode)}>
           <div className={classes.paper}>
                 <Box p={0.5}>
                     <Typography 
@@ -88,6 +92,13 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                             label="Title" variant="outlined" 
                             onChange={e => setTitle(e.target.value)}
                             value={title}
+                            InputProps={{
+                              classes: {
+                                root: classes.root,
+                                notchedOutline: classes.notchedOutline,
+                                focused: classes.focused
+                              }
+                            }}
                             />
                 </Box>
                 <Box p={0.5}>
@@ -101,11 +112,17 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                             variant="outlined"
                             onChange={e => setContent(e.target.value)}
                             value={content}
+                            InputProps={{
+                              classes: {
+                                root: classes.root,
+                                notchedOutline: classes.notchedOutline,
+                                focused: classes.focused
+                              }
+                            }}
                             />
                 </Box>
                 <Box p={0.5}>
                     <TextField
-                            style={{}}
                             id="outlined-multiline-static"
                             label="Give A Tag"
                             multiline
@@ -113,6 +130,13 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
                             variant="outlined"
                             onChange={e => setTags(e.target.value)}
                             value={tags}
+                            InputProps={{
+                              classes: {
+                                root: classes.root,
+                                notchedOutline: classes.notchedOutline,
+                                focused: classes.focused
+                              }
+                            }}
                             />
                 </Box>
                 <Box p={0.5} style={{justifyContent: "center", display: "flex"}}>

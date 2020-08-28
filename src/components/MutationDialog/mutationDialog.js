@@ -1,5 +1,5 @@
 // Library Import
-import React from 'react';
+import React, {useContext} from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Modal from '@material-ui/core/Modal';
@@ -10,6 +10,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 // Custom Import
 import {useStyles} from './makeCSS'
+import {AppContext} from 'context/appContext'
+import {COLOR_MODE} from 'utils/constants'
 
 
 const Alert = (props) => {
@@ -23,7 +25,10 @@ const MutationDialog = ({action,
                          error, 
                          handleClose}) => {
 
-  const classes = useStyles();
+  const [state] = useContext(AppContext)
+
+  const colorMode = COLOR_MODE[state.theme.mode]
+  const classes = useStyles(colorMode)()
 
   const displayData = () => {
 

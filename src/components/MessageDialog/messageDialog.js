@@ -1,5 +1,5 @@
 // Library imports
-import React from 'react';
+import React, {useContext} from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade'
@@ -10,13 +10,19 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
 import {useStyles} from "./makeCSS"
+import {COLOR_MODE} from "utils/constants"
+import {AppContext} from "context/appContext"
 
 
 export default function MessageDialog({message, 
                                        visibleState, 
                                        handlePrimary, 
                                        handleSecondary}) {
-  const classes = useStyles();
+  
+  
+  const [state] = useContext(AppContext)
+  const colorMode = COLOR_MODE[state.theme.mode]
+  const classes = useStyles(colorMode)()
 
   // return a message dialog with 2 buttons, each for a certain action handler  
   return (
