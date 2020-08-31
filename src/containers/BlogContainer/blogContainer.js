@@ -83,7 +83,7 @@ const BlogContainer = ({queryParams}) => {
     if (blogError) {
       // displaying sample data in case of error
       return sampleBlogs.map((data) => (
-            <SingleBlog data={data}/>
+            <SingleBlog data={data} key={data.id}/>
             )
           )
     }
@@ -97,7 +97,7 @@ const BlogContainer = ({queryParams}) => {
 
   return (
     <div 
-    data-testId="blog-container-parent" 
+    data-testid="blog-container-parent" 
     className={classes.parent}>
       <div className={classes.blogContainer} data-testid="blog-container">
         {getBlogs()}

@@ -35,8 +35,6 @@ export const useStyles = (mode) => {return makeStyles((theme) => ({
     border: "1px solid #355C7D",
     width: "500px",
     minWidth: "500px",
-    height: "390px",
-    minHeight: "390px",
     boxShadow: "0 0 20px #355C7D"
   },
   userName: {

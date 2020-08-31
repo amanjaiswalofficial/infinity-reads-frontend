@@ -6,8 +6,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
 import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import AccountCircleSharpIcon from '@material-ui/icons/AccountCircleSharp';
@@ -19,25 +17,20 @@ import { CHANGE_MODE,
          DARK_MODE, 
          LANDING_PAGE_PATH } from 'utils/constants'
 import { AppContext } from "context/appContext"
+import NavBarMenu from "containers/NavBarMenu/navBarMenu"
 
 const NavBar = () => {
 
-    const [state, dispatch] = useContext(AppContext);
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [state, dispatch] = useContext(AppContext);    
     const [mode, setMode] = useState(false);
-    const open = Boolean(anchorEl);
+    const [formVisible, setFormVisible] = useState(false)
     
     const history = useHistory();
     const classes = useStyles();       
     
-    const handleMenu = (event) => {
-        
-        setAnchorEl(event.currentTarget);
+    const handleMenu = () => {
+        setFormVisible(!formVisible)
       };
-
-    const handleClose = () => {
-    setAnchorEl(null);
-        };
 
 
     // update the URL with new params
@@ -76,10 +69,6 @@ const NavBar = () => {
                                         />}
                                 />
                             </Tooltip>
-                            <Typography role="">
-                                {state.user.user_id}
-                            </Typography>
-                                
                             <IconButton
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -89,26 +78,11 @@ const NavBar = () => {
                                 >
                                 <AccountCircleSharpIcon color="secondary" fontSize="large"/>
                                 </IconButton>
-                                <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                                >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
-                                </Menu>
                     </Toolbar>
                 </AppBar>
+                <NavBarMenu 
+                drawerVisible={formVisible} 
+                handleClose={handleMenu}/>
             </div>
     )
 }

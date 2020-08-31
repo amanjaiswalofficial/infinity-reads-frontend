@@ -31,7 +31,7 @@ const SearchBar = ({currentValue,
                 focused: classes.focused
                 }
               }}
-              value={currentValue}
+              value={currentValue ? currentValue : ""}
               onChange={e => handleValueChange(e.target.value)}
               onKeyPress={e => handleKeyPress(e)}
             />

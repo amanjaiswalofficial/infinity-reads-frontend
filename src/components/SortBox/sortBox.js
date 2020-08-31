@@ -23,7 +23,7 @@ const SortBox = ({currentValue, handleValueChange}) => {
     // Display menu values for sortBy
     const getSortByMenuValues = () => {
       return SORTBY_VALUES.map((singleItem) => {
-        return <MenuItem value={singleItem.value}>{singleItem.label}</MenuItem>
+        return <MenuItem value={singleItem.value} key={singleItem.value}>{singleItem.label}</MenuItem>
       })
     }
 
@@ -33,7 +33,7 @@ const SortBox = ({currentValue, handleValueChange}) => {
               <Select
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                value={currentValue}
+                value={currentValue ? currentValue : ""}
                 classes={{
                   root: classes.selectBox,
                   outlined: classes.selectBox,

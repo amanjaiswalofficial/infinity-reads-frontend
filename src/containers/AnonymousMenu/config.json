@@ -1,0 +1,107 @@
+{
+    "dialog": {
+            "newUser": {
+                "type":"newUser",
+                "values": [
+                    {
+                        "id": 0,
+                        "key": "helpText",
+                        "type": "help-text",
+                        "label": "New User Here? Go Ahead"
+                    },
+                    {
+                        "id": 1,
+                        "key": "firstName",
+                        "type": "text-field",
+                        "label": "First Name"
+                    },
+                    {
+                        "id": 2,
+                        "key": "lastName",
+                        "type": "text-field",
+                        "label": "Last Name"
+                    },
+                    {
+                        "id": 3,
+                        "key": "emailId",
+                        "type": "text-field",
+                        "label": "Email"
+                    },
+                    {
+                        "id": 4,
+                        "key": "password",
+                        "type": "text-field",
+                        "label": "Password"
+                    },
+                    {
+                        "id": 5,
+                        "key": "action-buttons",
+                        "type": "button",
+                        "config": {
+                            "buttons": [
+                            {
+                                "id": "button-submit",
+                                "text": "Submit"
+                            },
+                            {
+                                "id": "button-cancel",
+                                "text": "Cancel"
+                            }
+                            ]
+                        }
+                    }]
+                },
+            "existingUser": {
+                "type": "existingUser",
+                "values": [
+                    {
+                        "id": 0,
+                        "key": "helpText",
+                        "type": "help-text",
+                        "label": "Existing User ? Login Here"
+                    },
+                    {
+                        "id": 1,
+                        "key": "emailId",
+                        "type": "text-field",
+                        "label": "Email"
+                    },
+                    {
+                        "id": 2,
+                        "key": "password",
+                        "type": "text-field",
+                        "label": "Password"
+                    },
+                    {
+                        "id": 3,
+                        "key": "action-buttons",
+                        "type": "button",
+                        "config": {
+                            "buttons": [
+                            {
+                                "id": "button-submit",
+                                "text": "Login"
+                            },
+                            {
+                                "id": "button-cancel",
+                                "text": "Cancel"
+                            }
+                            ]
+                        }
+                    }
+                ]
+            }
+    },
+    "menu": [
+        {
+            "text": "Register",
+            "icon": "newIcon",
+            "key": "newUser"
+        },
+        {
+            "text": "Already A User ? Sign In",
+            "icon": "faceIcon",
+            "key": "existingUser"
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "key": "title",
+    "type": "text-field",
+    "label": "Title",
+    "config": {
+      "text": "Title"
+    }
+  },
+  {
+    "id": 2,
+    "key": "content",
+    "type": "text-area",
+    "label": "Content",
+    "config": {
+      "text": "Content"
+    }
+  },
+  {
+    "id": 3,
+    "key": "tags",
+    "type": "text-field",
+    "label": "Tags",
+    "config": {
+      "text": "Tags"
+    }
+  },
+  {
+    "id": 4,
+    "key": "action-buttons",
+    "type": "button",
+    "config": {
+      "buttons": [
+        {
+          "id": "button-ok",
+          "text": "OK"
+        },
+        {
+          "id": "button-cancel",
+          "text": "Cancel"
+        }
+      ]
+    }
+  }
+]

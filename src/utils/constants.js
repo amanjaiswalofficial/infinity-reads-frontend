@@ -17,17 +17,21 @@ export const SEARCH_PARAMS = [
 export const SEARCH_BAR_MESSAGE = "Search blog here (e.g. Name, Content, Tags)" 
 export const SORTBY_VALUES = [
     {
+      id: 1,
       value: "+title",
       label: "Title (A-Z)"
     },
     {
+      id: 2,
       value: "-title",
       label: "Title (Z-A)"
     },{
+      id: 3,
       value: "+date",
       label: "Most Recent"
     },
     {
+      id: 4,
       value: "-date",
       label: "Oldest"
     },
@@ -95,7 +99,9 @@ export const COLOR_MODE = {
         textBoxTitleColor: "#355C7D",
 
         //messageDialog related CSS
-        messageTextColor: "aed1ff" 
+        messageTextColor: "aed1ff",
+
+        menuItemHover: "#f5f5f5"
     },
     dark : {
         colorSecondary: '#15F4EE',
@@ -125,6 +131,11 @@ export const COLOR_MODE = {
         textBoxTitleColor: "#15F4EE",
 
         //messageDialog related CSS
-        messageTextColor: "#aed1ff" 
+        messageTextColor: "#aed1ff",
+
+        //navMenu related CSS
+        menuItemBorder: "1px solid #15F4EE",
+        menuItemHover: "#1f1f1f",
+        menuTextHover: "#15F4EE"
     }
 }

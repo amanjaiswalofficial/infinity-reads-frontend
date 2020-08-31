@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export const useStyles = makeStyles((theme) => ({
 
     title: {
-      width: "90%"
+      width: "90%",
     },
     profileImage: {
       height: "35px",
@@ -29,6 +29,14 @@ export const useStyles = makeStyles((theme) => ({
       background: "transparent",
       animationDuration: "0.5s",
       animationName: "$resetVisibility"
+    },
+    userOption: {
+      width: "9%",
+      border: "none",
+      background: "none",
+      padding: "0px",
+      margin: "0px",
+      color: "#FFFFFF"
     },
     switch : {
       marginTop: 8

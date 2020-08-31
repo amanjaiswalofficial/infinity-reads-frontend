@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 
 // Custom imports
 import { EDIT_BLOG } from 'utils/queries'
-import BlogDialog from 'components/BlogDialog/blogDialog'
+import BlogDialog from 'containers/BlogDialog/blogDialog'
 import MutationDialog from 'components/MutationDialog/mutationDialog'
 
 
