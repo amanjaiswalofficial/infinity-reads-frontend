@@ -6,8 +6,10 @@ import Fade from '@material-ui/core/Fade';
 import DrawerMenu from "components/DrawerMenu/drawerMenu"
 import DialogContainer from "components/DialogContainer/dialogContainer"
 import Form from "components/FormComponent/formComponent"
+import MutationHandler from "containers/MutationHandler/mutationHandler"
 import config from "./config.json"
-
+import {USER_MUTATIONS} from "utils/queries"
+import {saveToken} from "utils/helperFunctions"
 
 const AnonymousMenu = ({handleClose}) => {
 
@@ -15,41 +17,45 @@ const AnonymousMenu = ({handleClose}) => {
 
     const [menuVisible, setMenuVisible] = useState(true)
     const [dialogVisible, setDialogVisible] = useState(false)
+    const [mutationVisible, setMutationVisible] = useState(false)
 
-    const [formType, setFormType] = useState("")
-    const [formConfig, setFormConfig] = useState([])
+    const [form, setForm] = useState({
+                                        statusActive: false,
+                                        config: null,
+                                        type: "",
+                                        inputComponents: [],
+                                        data: {},
+                                        userInput: {}
+                                    })
 
     // if neither menu or dialog is visible, close the component
     useEffect(() => {
-        if(!menuVisible && !dialogVisible){
+        if(!menuVisible && !dialogVisible && !mutationVisible){
             handleClose()
         }
-    }, [menuVisible, dialogVisible, handleClose])
+    }, [menuVisible, dialogVisible, mutationVisible, handleClose])
 
     // if a menu option is selected, enable the dialog to display form
     useEffect(() => {
-        if(formConfig.length){
+        if(form.statusActive){
             setDialogVisible(true)
+            closeMenu()
         }
-    }, [formConfig])
-
-    // get variable to determine which menu option was selected
-    const handleClick = (variable) => {
-        setFormConfig(dialog[variable].values)
-        setFormType(dialog[variable].type)
-    }
-
-    const closeMenu = () => {
-        setMenuVisible(false)
-    }
+    }, [form.statusActive])
 
     const closeDialog = () => {
         setDialogVisible(false)
     }
 
-    const handleSubmit = (values) => {
-        console.log(values)
+    const handleFormSubmit = (values) => {
+
+        setForm({
+            ...form,
+            config: true,
+            userInput: values
+        })
         closeDialog()
+        setMutationVisible(true)
     } 
     
     const handleCancel = () => {
@@ -57,33 +63,85 @@ const AnonymousMenu = ({handleClose}) => {
     }
 
     // setup default values and methods for form components
-    const getAdditionalConfig = (config) => {
+    const getAdditionalConfig = (form) => {
         
         let values = {}
         let methods = {}
 
-        config.forEach((itemConfig) => {
-            const { key } = itemConfig // get the key from formConfig items
-            let itemId = `data-${key}` // generate unique ids, ex- data-title
-            values[itemId] = ""  
+        let {inputComponents, userInput} = form
+
+        inputComponents.forEach((component) => {
+            if(component.key){
+                values[component.key] = userInput[component.key] || ""    
+            }
         })
 
-        methods["button-submit"] = handleSubmit
+        methods["button-submit"] = handleFormSubmit
         methods["button-cancel"] = handleCancel
 
         return {values, methods}
 
     }
 
-    const getDialog = (visible) => {
+    const handleMutationSuccess = (data) => {
+        setMutationVisible(false)
+        if(data){
+            switch(data.code){
+                case 200:
+                    saveToken(data)
+                    setDialogVisible(false)
+                    break
+                case 400:
+                    setDialogVisible(true)
+                    break
+                default:
+                    setDialogVisible(false)
+                    break
+            }
+        }
+    }
+
+    // get variable to determine which menu option was selected
+    const handleMenuSubmit = (variable) => {
+
+        const {type, inputComponents} = dialog[variable]
+
+        // set values for form
+        setForm({
+            ...form,
+            statusActive: true,
+            type: type,
+            inputComponents: inputComponents
+        })
+
+    }
+
+    const closeMenu = () => {
+        setMenuVisible(false)
+    }
+
+    const getMutation = (visible, form) => {
+        return (
+                visible ?
+                <MutationHandler 
+                type={form.type}
+                mutation={USER_MUTATIONS[form.type]}
+                handleSuccess={handleMutationSuccess}
+                values={form.userInput}
+                mutationType={"message"}/>:
+                null
+        )
+    }
+
+    const getFormDialog = (visible) => {
 
         return visible ?
         <DialogContainer 
         visible={dialogVisible} 
         handleClose={closeDialog}>
             <Form 
-            formConfig={formConfig} 
-            additionalConfig={getAdditionalConfig(formConfig)}
+            formConfig={form.inputComponents} 
+            additionalConfig={getAdditionalConfig(form)}
             />
         </DialogContainer> :
         null
@@ -96,7 +154,7 @@ const AnonymousMenu = ({handleClose}) => {
             timeoue={{ enter: 1000, exit: 1000}}>
                 <DrawerMenu 
                 config={config}
-                handleClick={handleClick}
+                handleClick={handleMenuSubmit}
                 handleClose={closeMenu}
                 />
         </Fade>
@@ -105,7 +163,8 @@ const AnonymousMenu = ({handleClose}) => {
     return (
         <div>
             { getMenu(menuVisible, menu) }
-            { getDialog(dialogVisible) }
+            { getFormDialog(dialogVisible) }
+            { getMutation(mutationVisible, form) }
         </div>
     )
 }

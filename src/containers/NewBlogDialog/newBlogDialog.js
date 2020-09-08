@@ -5,7 +5,7 @@ import AddCircleOutlineTwoToneIcon from '@material-ui/icons/AddCircleOutlineTwoT
 
 // Custom imports
 import {AppContext} from "context/appContext"
-import MutationDialog from 'components/MutationDialog/mutationDialog'
+import MutationDialog from 'components/MutationComponent/mutationDialog'
 import BlogDialog from 'containers/BlogDialog/blogDialog'
 import {POST_BLOG} from 'utils/queries'
 import {useStyles} from './makeCSS'

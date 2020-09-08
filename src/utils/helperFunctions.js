@@ -1,5 +1,6 @@
 // Library imports
 import { createMuiTheme } from '@material-ui/core/styles';
+import {LOGIN_KEY} from "utils/constants"
 
 // Custom imports
 import {SEARCH_PARAMS} from 'utils/constants'
@@ -52,3 +53,17 @@ export const theme = createMuiTheme({
     }
   },
 });
+
+// save token to browser storage for login purpose
+export const saveToken = (data) => {
+
+  if(data.userData){
+      const token = data.userData.token
+      localStorage.setItem(LOGIN_KEY, token)
+  }
+}
+
+//
+export const getToken = () => {
+  return localStorage.getItem(LOGIN_KEY)
+}

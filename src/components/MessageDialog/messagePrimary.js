@@ -7,17 +7,15 @@ import Box from '@material-ui/core/Box'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 // Custom imports
-import SecondaryButton from "components/Buttons/SecondaryButton/secondaryButton"
 import PrimaryButton from 'components/Buttons/PrimaryButton/primaryButton';
 import {useStyles} from "./makeCSS"
 import {COLOR_MODE} from "utils/constants"
 import {AppContext} from "context/appContext"
 
 
-export default function MessageDialog({message, 
+export default function MessageDialogPrimary({message, 
                                        visibleState, 
-                                       handlePrimary, 
-                                       handleSecondary}) {
+                                       handlePrimary}) {
   
   
   const [state] = useContext(AppContext)
@@ -32,7 +30,7 @@ export default function MessageDialog({message,
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={visibleState}
-            onClose={handleSecondary}
+            onClose={handlePrimary}
             closeAfterTransition
             BackdropComponent={Backdrop}
             BackdropProps={{
@@ -49,11 +47,6 @@ export default function MessageDialog({message,
                             <PrimaryButton 
                             text={"Yes"} 
                             handleClick={handlePrimary}/>
-                            <SecondaryButton 
-                            textColor={"#F67280"} 
-                            text={"Cancel"} 
-                            handleClick={handleSecondary}
-                            />
                         </Box>
                   </div>
               </div>

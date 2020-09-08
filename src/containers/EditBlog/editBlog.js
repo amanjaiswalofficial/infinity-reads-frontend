@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 // Custom imports
 import { EDIT_BLOG } from 'utils/queries'
 import BlogDialog from 'containers/BlogDialog/blogDialog'
-import MutationDialog from 'components/MutationDialog/mutationDialog'
+import MutationDialog from 'components/MutationComponent/mutationDialog'
 
 
 const EditBlog = ({data, active, handleClose}) => {
@@ -25,11 +25,11 @@ const EditBlog = ({data, active, handleClose}) => {
         }
     }, [active])
 
-    const handleMutationClose = (code) => {
+    const handleMutationClose = (response) => {
         setMutationVisible(false)
         
         // send status code ahead to process and refresh if successful
-        handleClose(code)
+        handleClose(response.code)
     }
 
     const handleEditBlog = (id, title, content, user_id) => {

@@ -8,6 +8,7 @@ export const SAMPLE_DATA =
 "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 export const HOME_PATH = "/home"
 export const LANDING_PAGE_PATH = "/"
+export const LOGIN_KEY = "loginToken"
 export const SEARCH_PARAMS = [
     "search",
     "sort",

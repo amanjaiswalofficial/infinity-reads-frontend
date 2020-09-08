@@ -2,10 +2,10 @@
     "dialog": {
             "newUser": {
                 "type":"newUser",
-                "values": [
+                "params": ["firstName", "lastName", "emailId", "password"],
+                "inputComponents": [
                     {
                         "id": 0,
-                        "key": "helpText",
                         "type": "help-text",
                         "label": "New User Here? Go Ahead"
                     },
@@ -35,7 +35,6 @@
                     },
                     {
                         "id": 5,
-                        "key": "action-buttons",
                         "type": "button",
                         "config": {
                             "buttons": [
@@ -53,10 +52,10 @@
                 },
             "existingUser": {
                 "type": "existingUser",
-                "values": [
+                "params": ["emailId", "password"],
+                "inputComponents": [
                     {
                         "id": 0,
-                        "key": "helpText",
                         "type": "help-text",
                         "label": "Existing User ? Login Here"
                     },
@@ -74,7 +73,6 @@
                     },
                     {
                         "id": 3,
-                        "key": "action-buttons",
                         "type": "button",
                         "config": {
                             "buttons": [

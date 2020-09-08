@@ -4,11 +4,11 @@ import { useMutation } from '@apollo/client';
 
 
 // Custom imports
-import MessageDialog from 'components/MessageDialog/messageDialog'
+import MessageDialogSecondary from 'components/MessageDialog/messageSecondary'
 import {DELETE_BLOG} from 'utils/queries'
 import { REFRESH_STATE } from 'utils/constants'
 import {AppContext} from "context/appContext"
-import MutationDialog from 'components/MutationDialog/mutationDialog'
+import MutationDialog from 'components/MutationComponent/mutationDialog'
 
 
 const DeleteBlog = ({data, active, handleClose}) => {
@@ -45,11 +45,11 @@ const DeleteBlog = ({data, active, handleClose}) => {
         handleClose()
     }
 
-    const handleMutationClose = (code) => {
+    const handleMutationClose = (data) => {
 
         // if the delete operation was successful,
         // to show new content
-        if(code === 200){
+        if(data.code === 200){
             dispatch({
                 type: REFRESH_STATE,
                 payload: {
@@ -80,7 +80,7 @@ const DeleteBlog = ({data, active, handleClose}) => {
                 null
                 
             }
-            <MessageDialog
+            <MessageDialogSecondary
             message={`Delete this blog with id: ${data.id}?`} 
             visibleState={messageVisible}
             handlePrimary={callDeleteBlog}

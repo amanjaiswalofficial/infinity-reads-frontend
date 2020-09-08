@@ -30,9 +30,7 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
 
   const handleOKButton = (formValues) => {
 
-    const title = formValues["data-title"]
-    const content = formValues["data-content"]
-    const tags = formValues["data-tags"]
+    const {title, content, tags} = formValues
 
     // attempt to post the blog
     handleSubmit(data.id, title, content, user_id, tags)
@@ -46,11 +44,11 @@ const BlogDialog = ({data={}, dialogVisible, handleClose, handleSubmit}) => {
     let methods = {}
 
     formConfig.forEach((itemConfig) => {
-      const { key } = itemConfig // get the key from formConfig items
-      let itemId = `data-${key}` // generate unique ids, ex- data-title
-      // if edit operation, then use value from props, otherwise empty string
-      values[itemId] = propsData[key] || "" 
-      
+      // if item is of input type, use it's key
+      if(itemConfig.key){
+          const {key} = itemConfig
+          values[key] = propsData[key] || "" // generate default values for each input item
+      }
     })
 
     methods["button-cancel"] = handleCloseButton

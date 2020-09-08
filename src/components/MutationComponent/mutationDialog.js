@@ -79,24 +79,23 @@ const MutationDialog = ({action,
       );
     }
 
-    // Display success / warning message based on response
     if(data){
       const {code, message} = data[action]
       return (
-        <div className={classes.snackBar}>
+      <div className={classes.snackBar}>
           <Snackbar 
           open={visibleState} 
           autoHideDuration={2000} 
-          onClose={e => handleClose(code)}
+          onClose={e => handleClose(data[action])}
           >
             <Alert 
             onClose={handleClose} 
-            severity={code === 200 ? "success" : "warning"}>
+            severity={code === 200 ? "success" : "error"}>
               {message}
             </Alert>
           </Snackbar>
-        </div>
-      );
+      </div>
+      )
     }
 
   }

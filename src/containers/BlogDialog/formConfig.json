@@ -28,7 +28,6 @@
   },
   {
     "id": 4,
-    "key": "action-buttons",
     "type": "button",
     "config": {
       "buttons": [

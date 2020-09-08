@@ -55,3 +55,26 @@ query getTags{
   }
 }
 `
+export const NEW_USER_REGISTER =gql`
+ mutation NewUser($firstName: String, $lastName: String, $emailId: String!, $password: String!){
+  newUser(data: {firstName: $firstName, lastName: $lastName, emailId: $emailId, password: $password }){
+   message
+   code
+  }
+}`
+
+export const EXISTING_USER_LOGIN =gql`
+ mutation ExistingUser($emailId: String!, $password: String!){
+  existingUser(data: {emailId: $emailId, password: $password}){
+   message
+   code
+   userData{
+     token
+   }
+  }
+}`
+
+export const USER_MUTATIONS = {
+  "newUser": NEW_USER_REGISTER,
+  "existingUser": EXISTING_USER_LOGIN
+}

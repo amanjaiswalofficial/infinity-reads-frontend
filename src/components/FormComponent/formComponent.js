@@ -44,7 +44,7 @@ const FormComponent = ({formConfig, additionalConfig}) => {
         setFormValues(
             {
                 ...formValues, 
-                [`data-${key}`]: e.target.value
+                [key]: e.target.value
             })
     }
 
@@ -96,7 +96,7 @@ const FormComponent = ({formConfig, additionalConfig}) => {
                     fullWidth={true}
                     label={itemConfig.label}
                     variant="outlined" 
-                    value={formValues[`data-${itemConfig.key}`]}
+                    value={formValues[itemConfig.key]}
                     InputProps={{
                         classes: {
                         root: classes.root,
@@ -121,7 +121,7 @@ const FormComponent = ({formConfig, additionalConfig}) => {
                             rows={4}
                             fullWidth={true}
                             variant="outlined"
-                            value={formValues[`data-${itemConfig.key}`]}
+                            value={formValues[itemConfig.key]}
                             InputProps={{
                               classes: {
                                 root: classes.root,
