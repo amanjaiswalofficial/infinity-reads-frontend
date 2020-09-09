@@ -12,14 +12,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from 'views/HomePage'
 import LandingPage from 'views/LandingPage'
 import ProfilePage from 'views/ProfilePage'
-import NavBar from 'components/NavBar/navbar';
 import {theme} from 'utils/helperFunctions'
+import NavBarContainer from 'containers/NavBarContainer/navBarContainer';
 
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
     <BrowserRouter>
-    <NavBar/>
+    <NavBarContainer/>
     <Switch>
         <Route path='/home' component={HomePage} />
         <Route path='/profile' component={ProfilePage} />

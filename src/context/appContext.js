@@ -6,6 +6,7 @@ const initialState = {
   user: {
       anonymous: true,
       name: null,
+      token: null,
       user_id: "adminUser@123"
   },
   refreshState: {
@@ -20,16 +21,18 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN_USER":
       return {
+        ...state,
         user: {
-            name: action.payload.name,
+            token: action.payload.token,
             email: action.payload.email,
             anonymous: false
         }
       };
     case "LOGOUT_USER":
       return {
+        ...state,
         user: {
-            name: null,
+            token: null,
             email: null,
             anonymous: true
         }

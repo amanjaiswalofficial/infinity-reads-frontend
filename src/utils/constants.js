@@ -67,7 +67,9 @@ export const BLOG_LIMIT = 10
 // Action types
 export const RESET_NAVBAR_PROPS = "RESET_NAVBAR_PROPS"
 export const REFRESH_STATE = "REFRESH_STATE"
+export const LOGIN_USER = "LOGIN_USER"
 export const CHANGE_MODE = "CHANGE_MODE"
+export const LOGOUT_USER = "LOGOUT_USER"
 
 
 // CSS Constants

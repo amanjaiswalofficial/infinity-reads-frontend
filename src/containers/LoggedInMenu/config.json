@@ -1,0 +1,14 @@
+{
+    "menu": [
+        {
+            "text": "Log Out",
+            "icon": "newIcon",
+            "key": "logOut"
+        },
+        {
+            "text": "My Profile",
+            "icon": "faceIcon",
+            "key": "myProfile"
+        }
+    ]
+}

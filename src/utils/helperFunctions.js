@@ -55,15 +55,14 @@ export const theme = createMuiTheme({
 });
 
 // save token to browser storage for login purpose
-export const saveToken = (data) => {
-
-  if(data.userData){
-      const token = data.userData.token
-      localStorage.setItem(LOGIN_KEY, token)
-  }
+export const saveToken = (token) => {
+  localStorage.setItem(LOGIN_KEY, token)
 }
 
-//
 export const getToken = () => {
   return localStorage.getItem(LOGIN_KEY)
+}
+
+export const deleteToken = () => {
+  localStorage.removeItem(LOGIN_KEY)
 }

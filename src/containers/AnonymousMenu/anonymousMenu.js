@@ -1,5 +1,5 @@
 // Library imports
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Fade from '@material-ui/core/Fade';
 
 // Custom imports
@@ -9,11 +9,15 @@ import Form from "components/FormComponent/formComponent"
 import MutationHandler from "containers/MutationHandler/mutationHandler"
 import config from "./config.json"
 import {USER_MUTATIONS} from "utils/queries"
+import {LOGIN_USER} from "utils/constants"
 import {saveToken} from "utils/helperFunctions"
+import { AppContext } from "context/appContext"
 
 const AnonymousMenu = ({handleClose}) => {
 
     const {menu, dialog} = config
+
+    const [,dispatch] = useContext(AppContext);   
 
     const [menuVisible, setMenuVisible] = useState(true)
     const [dialogVisible, setDialogVisible] = useState(false)
@@ -83,12 +87,25 @@ const AnonymousMenu = ({handleClose}) => {
 
     }
 
+    const updateTokenInState = (data) => {
+        const {userData} = data
+        if(userData){
+            saveToken(userData.token)
+            dispatch({
+                    type: LOGIN_USER,
+                    payload: {
+                        token: userData.token
+                    }
+            })
+        }
+    }
+
     const handleMutationSuccess = (data) => {
         setMutationVisible(false)
         if(data){
             switch(data.code){
                 case 200:
-                    saveToken(data)
+                    updateTokenInState(data)
                     setDialogVisible(false)
                     break
                 case 400:
