@@ -11,6 +11,7 @@ import { AppContext } from "context/appContext"
 import AnonymousMenu from "containers/AnonymousMenu/anonymousMenu"
 import LoggedInMenu from 'containers/LoggedInMenu/loggedInMenu';
 import {getToken} from "utils/helperFunctions"
+import SnackBar from 'components/SnackBar/snackBar';
 
 
 const NavBarContainer = () => {
@@ -82,6 +83,7 @@ const NavBarContainer = () => {
             {
                 menuVisible ? displayMenu() : null
             }
+            <SnackBar/>
         </div>
     )
 }

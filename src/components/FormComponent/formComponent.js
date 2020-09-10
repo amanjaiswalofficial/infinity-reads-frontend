@@ -1,5 +1,5 @@
 // Library imports
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import Typography from "@material-ui/core/Typography"
@@ -28,7 +28,7 @@ import {AppContext} from 'context/appContext'
  * the state values for different variables initialized on render
  */
 //  This method accepts inputs as props
-const FormComponent = ({formConfig, additionalConfig}) => {
+const FormComponent = ({formConfig, additionalConfig, validator=null}) => {
 
     const {methods} = additionalConfig
     const [state] = useContext(AppContext)
@@ -37,15 +37,67 @@ const FormComponent = ({formConfig, additionalConfig}) => {
     const classes = useStyles(colorMode)()
 
     const [formValues, setFormValues] = useState(null)
+    const [formValidation, setFormValidation] = useState({})
 
-    const updateValues = (e, key) => {
 
+    // on initial render, set values for each component that takes input
+    useEffect(() => {
+        const { values } = additionalConfig
+        if(!formValues){
+            setFormValues(values)
+        }
+
+    }, [formValues, additionalConfig])
+
+    // if validation exist, then set error/helperText for each input
+    useEffect(() => {
+        if(validator && additionalConfig.values){
+            const validations = {}
+            const {values} = additionalConfig
+            const formInputKeys = Object.keys(values)
+            formInputKeys.forEach((key) => {
+                validations[key] = {
+                    error: true,
+                    helperText: ""
+                }
+            })
+            setFormValidation(validations)
+        }
+    }, [validator, additionalConfig])
+
+    const updateValidateValues = (e, key) => {
+
+        const inputValue = e.target.value
         // on change in value of any of the inputs, update value in state
         setFormValues(
             {
                 ...formValues, 
-                [key]: e.target.value
+                [key]: inputValue
             })
+        if(validator){
+            let validationResponse = validator(key, inputValue)
+            setFormValidation({
+                ...formValidation,
+                [key]: {
+                    error: validationResponse.error,
+                    helperText: validationResponse.text
+
+                }
+            })
+        }
+    }
+
+    const checkValidation = () => {
+        if(!validator){
+            return false
+        }
+        let disabledValue = false
+        Object.keys(formValidation).forEach((key) => {
+            if(formValidation[key].error){
+                disabledValue = true
+            }
+        })
+        return disabledValue
     }
 
     const makeText = (item) => {
@@ -73,7 +125,8 @@ const FormComponent = ({formConfig, additionalConfig}) => {
                 <Box 
                 p={0.5} 
                 style={{justifyContent: "center", display: "flex"}}>
-                    <PrimaryButton 
+                    <PrimaryButton
+                    disabled={checkValidation()}
                     text={button1.text}
                     handleClick={e => methods[button1.id](formValues)}
                     />
@@ -86,6 +139,31 @@ const FormComponent = ({formConfig, additionalConfig}) => {
             )
         }
 
+    }
+
+    // Return a textField with text and label based on config
+    const makePasswordField = (itemConfig) => {
+        return (
+            <Box p={0.5} className={classes.childBox}>
+                    <TextField id="outlined-basic"
+                    fullWidth={true}
+                    type="password"
+                    label={itemConfig.label}
+                    variant="outlined" 
+                    value={formValues[itemConfig.key]}
+                    InputProps={{
+                        classes: {
+                        root: classes.root,
+                        notchedOutline: classes.notchedOutline,
+                        focused: classes.focused
+                        }
+                    }}
+                    error={validator ? formValidation[itemConfig.key].error : false}
+                    helperText={validator ? formValidation[itemConfig.key].helperText : ""}
+                    onChange={e => updateValidateValues(e, itemConfig.key)}
+                    />
+            </Box>
+        )
     }
 
     // Return a textField with text and label based on config
@@ -104,7 +182,9 @@ const FormComponent = ({formConfig, additionalConfig}) => {
                         focused: classes.focused
                         }
                     }}
-                    onChange={e => updateValues(e, itemConfig.key)}
+                    error={validator ? formValidation[itemConfig.key].error : false}
+                    helperText={validator ? formValidation[itemConfig.key].helperText : ""}
+                    onChange={e => updateValidateValues(e, itemConfig.key)}
                     />
             </Box>
         )
@@ -129,7 +209,7 @@ const FormComponent = ({formConfig, additionalConfig}) => {
                                 focused: classes.focused
                               }
                             }}
-                            onChange={e => updateValues(e, itemConfig.key)}
+                            onChange={e => updateValidateValues(e, itemConfig.key)}
                             />
             </Box>
         )
@@ -154,17 +234,6 @@ const FormComponent = ({formConfig, additionalConfig}) => {
         return finalButtons
     }
 
-
-    // on initial render, check for values if provided, and set it as default
-    const setData = (config) => {
-
-        const { values } = config
-        if(!formValues){
-            setFormValues(values)
-        }
-
-    }
-
     // Use the config provided, and return a form made up of different components
     const makeForm = (config) => {
 
@@ -187,6 +256,9 @@ const FormComponent = ({formConfig, additionalConfig}) => {
                 case "button":
                     component = makeButtons(singleItem)
                     break
+                case "password":
+                    component = makePasswordField(singleItem)
+                    break
                 default:
                     console.log(`Invalid config, unable to make component for ${singleItem}`)
                     break
@@ -201,9 +273,6 @@ const FormComponent = ({formConfig, additionalConfig}) => {
 
     return (
         <div>
-            {
-                setData(additionalConfig)
-            }
             {
                 formValues ? makeForm(formConfig) : null
             }

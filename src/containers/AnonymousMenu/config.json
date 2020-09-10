@@ -30,7 +30,7 @@
                     {
                         "id": 4,
                         "key": "password",
-                        "type": "text-field",
+                        "type": "password",
                         "label": "Password"
                     },
                     {
@@ -68,7 +68,7 @@
                     {
                         "id": 2,
                         "key": "password",
-                        "type": "text-field",
+                        "type": "password",
                         "label": "Password"
                     },
                     {

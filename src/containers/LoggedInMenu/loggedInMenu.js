@@ -5,7 +5,7 @@ import Fade from '@material-ui/core/Fade';
 // Custom imports
 import DrawerMenu from "components/DrawerMenu/drawerMenu"
 import { AppContext } from "context/appContext"
-import {LOGOUT_USER} from "utils/constants"
+import {LOGOUT_USER, DISPLAY_SNACK} from "utils/constants"
 import config from "./config.json"
 import {deleteToken} from "utils/helperFunctions"
 
@@ -24,11 +24,23 @@ const LoggedInMenu = ({handleClose}) => {
     }, [menuVisible, handleClose])
 
     const logOutUser = () => {
+
+        // remove token from state
         dispatch({
             type: LOGOUT_USER,
           })
+
+        // remove token from localStorage
         deleteToken()
         setMenuVisible(false)
+
+        // display successful message
+        dispatch({
+            type: DISPLAY_SNACK,
+            payload: {
+                message: "Logged Out Successfully"
+            }
+        })
     }
 
     // get variable to determine which menu option was selected

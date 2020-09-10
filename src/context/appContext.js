@@ -15,6 +15,10 @@ const initialState = {
   theme: {
     mode: "light"
   },
+  snackBar: {
+    visible: false,
+    message: null
+  }
 };
 
 const reducer = (state, action) => {
@@ -49,6 +53,22 @@ const reducer = (state, action) => {
         ...state,
         theme: {
           mode: action.payload.mode
+        }
+      }
+    case "DISPLAY_SNACK":
+      return {
+        ...state,
+        snackBar:{
+          visible: true,
+          message: action.payload.message
+        }
+      }
+    case "HIDE_SNACK":
+      return {
+        ...state,
+        snackBar:{
+          visible: false,
+          message: null
         }
       }
     default:

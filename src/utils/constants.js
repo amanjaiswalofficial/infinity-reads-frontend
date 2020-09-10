@@ -70,6 +70,8 @@ export const REFRESH_STATE = "REFRESH_STATE"
 export const LOGIN_USER = "LOGIN_USER"
 export const CHANGE_MODE = "CHANGE_MODE"
 export const LOGOUT_USER = "LOGOUT_USER"
+export const DISPLAY_SNACK = "DISPLAY_SNACK"
+export const HIDE_SNACK = "HIDE_SNACK"
 
 
 // CSS Constants

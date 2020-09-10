@@ -7,11 +7,13 @@ import DrawerMenu from "components/DrawerMenu/drawerMenu"
 import DialogContainer from "components/DialogContainer/dialogContainer"
 import Form from "components/FormComponent/formComponent"
 import MutationHandler from "containers/MutationHandler/mutationHandler"
-import config from "./config.json"
 import {USER_MUTATIONS} from "utils/queries"
 import {LOGIN_USER} from "utils/constants"
 import {saveToken} from "utils/helperFunctions"
 import { AppContext } from "context/appContext"
+import {formValidator} from "./formValidations"
+import config from "./config.json"
+
 
 const AnonymousMenu = ({handleClose}) => {
 
@@ -159,6 +161,7 @@ const AnonymousMenu = ({handleClose}) => {
             <Form 
             formConfig={form.inputComponents} 
             additionalConfig={getAdditionalConfig(form)}
+            validator={formValidator}
             />
         </DialogContainer> :
         null
