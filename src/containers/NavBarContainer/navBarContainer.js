@@ -10,7 +10,7 @@ import { CHANGE_MODE,
 import { AppContext } from "context/appContext"
 import AnonymousMenu from "containers/AnonymousMenu/anonymousMenu"
 import LoggedInMenu from 'containers/LoggedInMenu/loggedInMenu';
-import {getToken} from "utils/helperFunctions"
+import {getToken, getEmail} from "utils/helperFunctions"
 import SnackBar from 'components/SnackBar/snackBar';
 
 
@@ -34,11 +34,13 @@ const NavBarContainer = () => {
 
     useEffect(() => {
         let token = getToken()
+        let email = getEmail()
         if(token){
             dispatch({
                 type: LOGIN_USER,
                 payload: {
-                  token: token
+                  token: token,
+                  user_id: email
                 }
             })
         }

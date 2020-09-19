@@ -9,7 +9,7 @@ import Form from "components/FormComponent/formComponent"
 import MutationHandler from "containers/MutationHandler/mutationHandler"
 import {USER_MUTATIONS} from "utils/queries"
 import {LOGIN_USER} from "utils/constants"
-import {saveToken} from "utils/helperFunctions"
+import {saveToken, saveEmail} from "utils/helperFunctions"
 import { AppContext } from "context/appContext"
 import {formValidator} from "./formValidations"
 import config from "./config.json"
@@ -93,9 +93,11 @@ const AnonymousMenu = ({handleClose}) => {
         const {userData} = data
         if(userData){
             saveToken(userData.token)
+            saveEmail(userData.user.email)
             dispatch({
                     type: LOGIN_USER,
                     payload: {
+                        user_id: userData.user.email,
                         token: userData.token
                     }
             })

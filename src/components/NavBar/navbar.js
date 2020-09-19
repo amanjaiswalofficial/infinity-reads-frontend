@@ -40,6 +40,7 @@ const NavBar = ({methods}) => {
                                         />}
                                 />
                             </Tooltip>
+                            {state.user.user_id}
                             <IconButton
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"

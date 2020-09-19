@@ -36,7 +36,7 @@ const DeleteBlog = ({data, active, handleClose}) => {
         setMessageVisible(false)
         
         // Call GraphQL mutation with required variable
-        deleteBlog({variables: {id: data.id}}).catch(err => console.log(err))
+        deleteBlog({variables: {id: data.id, token: state.user.token}}).catch(err => console.log(err))
         setMutationVisible(true)
     }
 
@@ -45,20 +45,10 @@ const DeleteBlog = ({data, active, handleClose}) => {
         handleClose()
     }
 
-    const handleMutationClose = (data) => {
+    const handleMutationClose = (data=null) => {
 
-        // if the delete operation was successful,
-        // to show new content
-        if(data.code === 200){
-            dispatch({
-                type: REFRESH_STATE,
-                payload: {
-                  reload: true
-                }
-              })
-        }
         setMutationVisible(false)
-        handleClose()
+        handleClose(data)
 
     }
 

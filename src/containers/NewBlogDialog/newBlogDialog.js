@@ -29,6 +29,7 @@ const NewBlogDialog = () => {
     const handlePostBlog = (id, title, content, user_id, tags) => {
 
         postBlog({variables: {
+            token: state.user.token,
             user_id: user_id, 
             title: title, 
             content: content, 
@@ -40,11 +41,11 @@ const NewBlogDialog = () => {
         
     }
 
-    const closeMsgDialog = (code=null) => {
+    const closeMsgDialog = (data=null) => {
 
         // if the postOperation was successful
         // reload the page to get latest blogs
-        if(code && code === 200){
+        if(data && data.code === 200){
             dispatch({
                 type: REFRESH_STATE,
                 payload: {
@@ -85,7 +86,9 @@ const NewBlogDialog = () => {
             handleSubmit={handlePostBlog}
             handleClose={closeDialog}/>
 
-            <div className={classes.root}>
+            {
+                state.user.user_id ?
+                <div className={classes.root}>
                 <Tooltip title="Create New">
                     <button 
                     onClick={openDialog} 
@@ -95,7 +98,10 @@ const NewBlogDialog = () => {
                         fontSize="large"/>
                     </button>
                 </Tooltip>
-            </div>
+                </div>
+                :
+                null
+            }
         </div>
     )
 }

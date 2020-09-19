@@ -14,9 +14,9 @@ const SingleBlog = ({data}) => {
     const [editVisible, setEditVisible] = useState(false)
     const [deleteVisible, setDeleteVisible] = useState(false)
 
-    const callRefetch = (code) => {
+    const callRefetch = (data) => {
 
-        if(code && code === 200){
+        if(data && data.code === 200){
             dispatch({
                 type: REFRESH_STATE,
                 payload: {
@@ -30,8 +30,8 @@ const SingleBlog = ({data}) => {
         setEditVisible(true)
     }
 
-    const handleEditClose = (code = null) => {
-        callRefetch(code)
+    const handleEditClose = (data = null) => {
+        callRefetch(data)
         setEditVisible(false)
     }
 
@@ -39,8 +39,8 @@ const SingleBlog = ({data}) => {
         setDeleteVisible(true)
     }
 
-    const handleDeleteClose = (code = null) => {
-        callRefetch(code)
+    const handleDeleteClose = (data = null) => {
+        callRefetch(data)
         setDeleteVisible(false)
     }
 

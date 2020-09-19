@@ -28,7 +28,7 @@ const reducer = (state, action) => {
         ...state,
         user: {
             token: action.payload.token,
-            email: action.payload.email,
+            user_id: action.payload.user_id,
             anonymous: false
         }
       };

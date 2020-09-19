@@ -21,24 +21,24 @@ query getBlogs($search: String, $sort: String, $filter: String, $start: Int, $li
 }`
 
 export const POST_BLOG =gql`
- mutation PostBlog($title: String!, $content: String!, $user_id: String!, $tags: [String]){
-  postBlog(data:{title: $title, content: $content, user_id: $user_id, tags: $tags}){
+ mutation PostBlog($title: String!, $content: String!, $user_id: String!, $tags: [String], $token: String!){
+  postBlog(data:{title: $title, content: $content, user_id: $user_id, tags: $tags, token: $token}){
    code
    message
   }
 }`
 
 export const DELETE_BLOG =gql`
- mutation DeleteBlog($id: ID!){
-  deleteBlog(id: $id){
+ mutation DeleteBlog($id: ID!, $token: String!){
+  deleteBlog(id: $id, data:{token: $token}){
    message
    code
   }
 }`
 
 export const EDIT_BLOG=gql`
- mutation UpdateBlog($user_id: String!, $id: ID!, $title: String!, $content: String!){
-  updateBlog(id: $id, data:{user_id: $user_id, title: $title, content: $content}){
+ mutation UpdateBlog($user_id: String!, $id: ID!, $title: String!, $content: String!, $token: String!){
+  updateBlog(id: $id, data:{user_id: $user_id, title: $title, content: $content, token: $token}){
    message
    code
   }
@@ -69,6 +69,9 @@ export const EXISTING_USER_LOGIN =gql`
    message
    code
    userData{
+     user{
+       email
+     }
      token
    }
   }
