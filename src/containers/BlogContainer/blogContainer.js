@@ -1,5 +1,5 @@
 // Library imports
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import Loader from 'react-loader-spinner'
 import { useQuery } from '@apollo/client';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
@@ -9,7 +9,8 @@ import SingleBlog from 'containers/SingleBlog/singleBlog'
 import PaginationContainer from 'containers/PaginationContainer/pagContainer'
 import sampleBlogs from 'data/sampleBlogs.json'
 import { GET_BLOGS } from 'utils/queries'
-import { BLOG_LIMIT } from 'utils/constants'
+import {AppContext} from "context/appContext"
+import { BLOG_LIMIT, REFRESH_STATE } from 'utils/constants'
 import {useStyles} from './makeCSS'
 
 
@@ -21,11 +22,13 @@ const BlogContainer = ({queryParams}) => {
 
   const [totalPages, setTotalPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(0)
+  const [state, dispatch] = useContext(AppContext);
 
   const { 
     loading: blogLoading, 
     error: blogError, 
-    data: blogData
+    data: blogData,
+    refetch
         } = useQuery(GET_BLOGS, {
             variables: {
               search: userSearch,
@@ -35,6 +38,18 @@ const BlogContainer = ({queryParams}) => {
               limit: BLOG_LIMIT
             }
           });
+
+  useEffect(() => {
+    if(state.refreshState.reload){
+      refetch()
+      dispatch({
+        type: REFRESH_STATE,
+        payload: {
+          reload: false
+        }
+      })
+    }
+  }, [state.refreshState.reload])
 
   useEffect(() => {
     
@@ -83,7 +98,7 @@ const BlogContainer = ({queryParams}) => {
     if (blogError) {
       // displaying sample data in case of error
       return sampleBlogs.map((data) => (
-            <SingleBlog data={data}/>
+            <SingleBlog data={data} key={data.id}/>
             )
           )
     }
@@ -97,7 +112,7 @@ const BlogContainer = ({queryParams}) => {
 
   return (
     <div 
-    data-testId="blog-container-parent" 
+    data-testid="blog-container-parent" 
     className={classes.parent}>
       <div className={classes.blogContainer} data-testid="blog-container">
         {getBlogs()}

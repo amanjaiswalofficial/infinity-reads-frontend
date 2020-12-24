@@ -3,12 +3,17 @@ import Button from '@material-ui/core/Button'
 
 import { useStyles } from 'components/Buttons/makeCSS'
 
-const PrimaryButton = ({handleClick, text}) => {
+const PrimaryButton = ({handleClick, text, disabled=false}) => {
 
     const classes = useStyles();
 
     return (
-        <Button className={classes.primary} onClick={handleClick}>{text}</Button>
+        <Button 
+            disabled={disabled} 
+            className={classes.primary} 
+            onClick={handleClick}>
+                {text}
+        </Button>
     )
 }
 

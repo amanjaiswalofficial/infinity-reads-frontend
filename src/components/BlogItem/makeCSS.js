@@ -49,7 +49,7 @@ export const useStyles = (mode) => {return makeStyles((theme) => ({
     },
     editIcon: {
       height: "30px",
-      width: "30px"
+      width: "30px",
     },
     deleteIcon: {
       height: "30px",

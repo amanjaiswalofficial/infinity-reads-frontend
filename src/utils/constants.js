@@ -8,6 +8,7 @@ export const SAMPLE_DATA =
 "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 export const HOME_PATH = "/home"
 export const LANDING_PAGE_PATH = "/"
+export const LOGIN_KEY = "loginToken"
 export const SEARCH_PARAMS = [
     "search",
     "sort",
@@ -17,17 +18,21 @@ export const SEARCH_PARAMS = [
 export const SEARCH_BAR_MESSAGE = "Search blog here (e.g. Name, Content, Tags)" 
 export const SORTBY_VALUES = [
     {
+      id: 1,
       value: "+title",
       label: "Title (A-Z)"
     },
     {
+      id: 2,
       value: "-title",
       label: "Title (Z-A)"
     },{
+      id: 3,
       value: "+date",
       label: "Most Recent"
     },
     {
+      id: 4,
       value: "-date",
       label: "Oldest"
     },
@@ -62,7 +67,11 @@ export const BLOG_LIMIT = 10
 // Action types
 export const RESET_NAVBAR_PROPS = "RESET_NAVBAR_PROPS"
 export const REFRESH_STATE = "REFRESH_STATE"
+export const LOGIN_USER = "LOGIN_USER"
 export const CHANGE_MODE = "CHANGE_MODE"
+export const LOGOUT_USER = "LOGOUT_USER"
+export const DISPLAY_SNACK = "DISPLAY_SNACK"
+export const HIDE_SNACK = "HIDE_SNACK"
 
 
 // CSS Constants
@@ -73,7 +82,7 @@ export const COLOR_MODE = {
         colorSecondary: '#355C7D',
         body: "#FFFFFF",
         heading: "#222222",
-        text: "#000000",
+        text: "#111111",
         bgMain: "#FFFFFF",
         // blogItem related CSS,
         blogBorderColor: "none",
@@ -87,7 +96,17 @@ export const COLOR_MODE = {
         choiceTextHover: "#355C7D",
 
         // pagination related CSS
-        pagBorderRadius: "0px 0px"
+        pagBorderRadius: "0px 0px",
+
+        //blogDialog related CSS
+        textBoxBorderOnFocus: "2px solid #355C7D",
+        textBoxBgOnFocus: "#FFFFFF",
+        textBoxTitleColor: "#355C7D",
+
+        //messageDialog related CSS
+        messageTextColor: "aed1ff",
+
+        menuItemHover: "#f5f5f5"
     },
     dark : {
         colorSecondary: '#15F4EE',
@@ -109,6 +128,19 @@ export const COLOR_MODE = {
         choiceTextHover: "#15F4EE",
         
         //paginationBox related CSS
-        pagBorderRadius: "3px 3px"
+        pagBorderRadius: "3px 3px",
+
+        //blogDialog related CSS
+        textBoxBorderOnFocus: "2px solid #15F4EE",
+        textBoxBgOnFocus: "#ffffff",
+        textBoxTitleColor: "#15F4EE",
+
+        //messageDialog related CSS
+        messageTextColor: "#aed1ff",
+
+        //navMenu related CSS
+        menuItemBorder: "1px solid #15F4EE",
+        menuItemHover: "#1f1f1f",
+        menuTextHover: "#15F4EE"
     }
 }

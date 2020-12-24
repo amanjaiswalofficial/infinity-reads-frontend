@@ -6,6 +6,7 @@ const initialState = {
   user: {
       anonymous: true,
       name: null,
+      token: null,
       user_id: "adminUser@123"
   },
   refreshState: {
@@ -14,22 +15,28 @@ const initialState = {
   theme: {
     mode: "light"
   },
+  snackBar: {
+    visible: false,
+    message: null
+  }
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN_USER":
       return {
+        ...state,
         user: {
-            name: action.payload.name,
-            email: action.payload.email,
+            token: action.payload.token,
+            user_id: action.payload.user_id,
             anonymous: false
         }
       };
     case "LOGOUT_USER":
       return {
+        ...state,
         user: {
-            name: null,
+            token: null,
             email: null,
             anonymous: true
         }
@@ -46,6 +53,22 @@ const reducer = (state, action) => {
         ...state,
         theme: {
           mode: action.payload.mode
+        }
+      }
+    case "DISPLAY_SNACK":
+      return {
+        ...state,
+        snackBar:{
+          visible: true,
+          message: action.payload.message
+        }
+      }
+    case "HIDE_SNACK":
+      return {
+        ...state,
+        snackBar:{
+          visible: false,
+          message: null
         }
       }
     default:

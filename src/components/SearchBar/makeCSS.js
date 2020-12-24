@@ -14,10 +14,17 @@ export const useStyles = (mode) => {
         color: mode.text,
       },
       notchedOutline: {},
-        focused: {
-        "& $notchedOutline": {
-            borderColor: "yellow"
-        }
-        }
+  focused: {
+    '&$focused $notchedOutline': {
+      border: mode.textBoxBorderOnFocus
+  },
+    "&$focused": {
+      color: mode.textSecondary
+    }
+  },
+  root: {
+    background: mode.bgMain,
+    color: mode.text
+  }
   }));
 }

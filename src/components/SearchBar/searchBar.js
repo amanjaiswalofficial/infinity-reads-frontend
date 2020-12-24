@@ -25,13 +25,13 @@ const SearchBar = ({currentValue,
               placeholder={SEARCH_BAR_MESSAGE}
               variant="outlined" 
               InputProps={{
-              className: classes.textField,
               classes: {
+                root: classes.root,
                 notchedOutline: classes.notchedOutline,
                 focused: classes.focused
-              }
+                }
               }}
-              value={currentValue}
+              value={currentValue ? currentValue : ""}
               onChange={e => handleValueChange(e.target.value)}
               onKeyPress={e => handleKeyPress(e)}
             />
